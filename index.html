@@ -43,6 +43,7 @@
     <script type="text/javascript"
             src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sx4y6v49bc"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/searchPlace.js"></script>
     <script src="js/appendPlace.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
 </head>
@@ -97,7 +98,7 @@
     document.getElementById('searchWindow').addEventListener('change', function (event) {
         var idx = document.getElementById('searchedPlace').children.length;
         var place = this.value;
-
+        searchPlace(place);
         appendPlace(idx, place);
     })
 </script>
