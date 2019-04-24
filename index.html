@@ -44,7 +44,7 @@
             src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sx4y6v49bc"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/searchPlace.js"></script>
-    <script src="js/appendPlace.js"></script>
+    <script src="js/listPlace.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
 </head>
 
@@ -68,6 +68,15 @@
                 <ul id="searchedPlace" class="nav flex-column mb-2">
 
                 </ul>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>ADDED_PLACES</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul id="addedPlace" class="nav flex-column mb-2">
+
+                </ul>
             </div>
         </nav>
 
@@ -89,7 +98,7 @@
 
     var map = new naver.maps.Map('map', mapOptions);
 
-    // 검색창 keyup eventListener. 자동완성때 사용.
+    // 검색창 keyup eventListener. 자동완성 때 사용.
     document.getElementById('searchWindow').addEventListener('keyup', function (event) {
         console.log("key up event : " + event);
     });
@@ -97,8 +106,9 @@
     // 검색창 change eventListener. 검색결과 사용.
     document.getElementById('searchWindow').addEventListener('change', function (event) {
         var idx = document.getElementById('searchedPlace').children.length;
-        var place = this.value;
-        searchPlace(place);
+        var placeQuery = this.value;
+
+        listPlace(idx, placeQuery);
     })
 </script>
 
