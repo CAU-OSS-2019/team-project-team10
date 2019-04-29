@@ -1,4 +1,5 @@
 var searchedPlaces = [];
+var addedPlace = [];
 
 function listPlace(idx, placeQuery) {
     searchPlace(placeQuery).then(function (resolvedData){
