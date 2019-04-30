@@ -20,5 +20,5 @@ function findCenter(){
     m[0]/= addedPlace.length;
     m[1]/= addedPlace.length;
 
-    console.log(m);
+    console.log("중심위치 : x = " + m[0] + ", " + "y = " + m[1]);
 }
