@@ -1,5 +1,6 @@
 var a =0;
 var searchedPlaces = [];
+var addedPlace = [];
 
 function searchPlace(_keyword, _coordinate){
     console.log("searchplace _coordinate : ",_coordinate);
@@ -11,12 +12,12 @@ function searchPlace(_keyword, _coordinate){
                     var placesData = JSON.parse(body).places;
                     console.log(placesData);
                     resolve(placesData);
-                    
+
                     for(var i=0; i<placesData.length; i++) {
                     	//if(placesData[i].distance < 10000) {
                             console.log('check : '+ placesData[i].x +" "+ placesData[i].y);
                             var posit = new naver.maps.LatLng(placesData[i].y, placesData[i].x);
-                        
+
                             var marker = new naver.maps.Marker({
                                 position: posit,
                                 map: map,
@@ -28,7 +29,7 @@ function searchPlace(_keyword, _coordinate){
                     }
                     a++;
                     if(a>6){a=0;}
-                    
+
                 }).catch(err=>{
                     console.error(err);
                     reject("Error fetching.")
@@ -36,7 +37,6 @@ function searchPlace(_keyword, _coordinate){
             });
     })
 }
-
 
 function listPlace(_idx, _placeQuery, _coordinate) {
     console.log("listplace _coordinate : ",_coordinate);
