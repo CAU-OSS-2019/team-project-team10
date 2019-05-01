@@ -1,7 +1,8 @@
 var searchedPlaces = [];
 
-function listPlace(idx, placeQuery) {
-    searchPlace(placeQuery).then(function (resolvedData){
+function listPlace(_idx, _placeQuery, _coordinate) {
+    console.log("listplace _coordinate : ",_coordinate);
+    searchPlace(_placeQuery, _coordinate).then(function (resolvedData){
         $('#searchedPlace').empty();
 
         console.log(resolvedData);

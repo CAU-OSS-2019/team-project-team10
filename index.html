@@ -92,7 +92,8 @@
 
 <script>
     var mapOptions = {
-        center: new naver.maps.LatLng(37.3595704, 127.105399),
+        //127.1054328,37.3595963
+        // center: new naver.maps.LatLng(37.3595963, 127.1054328),
         zoom: 10
     };
 
@@ -110,8 +111,9 @@
     document.getElementById('searchWindow').addEventListener('change', function (event) {
         var idx = document.getElementById('searchedPlace').children.length;
         var placeQuery = this.value;
-
-        listPlace(idx, placeQuery);
+        var coordinate = map.center.x+","+map.center.y;
+        console.log("Map coordinate as string : ",coordinate)
+        listPlace(idx, placeQuery, coordinate);
     })
 </script>
 
