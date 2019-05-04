@@ -26,6 +26,11 @@ Before commit : f1525a3ba4daf517173fdaaf2c45b056117f8add
 - It resolves CORS policy issues.
 - Only NodeJsExpress needs to authenticate with *NaverAPIServer*
 
+Before commit : 30cb8ef1d00073be76937085d0c0a88fa8bfe685
+
+Using FelixSeol repository.
+Replace to CAU-OSS-2019/team-project-team10
+
 ## Tutorial
 
 ### How to use Naver Maps API

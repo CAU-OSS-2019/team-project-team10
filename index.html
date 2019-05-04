@@ -45,6 +45,7 @@
     <script src="js/dashboard.js"></script>
     <script src="js/searchPlace.js"></script>
     <script src="js/findCenter.js"></script>
+    <script src="js/newPoint.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
 </head>
 
@@ -104,7 +105,10 @@
 
     var markerList = [];
     var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
-
+    
+    var startList = [];
+    newPoint(map,startList);
+    
     // 검색창 keyup eventListener. 자동완성 때 사용.
     document.getElementById('searchWindow').addEventListener('keyup', function (event) {
         console.log("key up event : " + event);
