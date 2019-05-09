@@ -12,3 +12,8 @@ function resetBtn(){
     var res =`<button type="button" class='resBtn' style="height:auto;width:auto">초기화</button>`;
     return res;
 }
+
+function addBtn(){
+    var addb =`<button type="button" class='addBtn' style="height:auto;width:auto">새 위치 추가</button>`;
+    return addb;
+}
