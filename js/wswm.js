@@ -1,13 +1,9 @@
-var result = []; // 검색 된 아이템의 개수.
 var subMeet = true; // 이 장소에서 만날 수 있는지?
 var meet = false;   // 만나야하는 최종 장소 결정.
 var searched = [];  // 첫번 째 시도에서 탐색이 되었는지?
 var resultPlace = [];
 
-var toDoList = ["삼겹살", "당구"]; // test 를 위한 임시 toDoList
-
-
-
+var toDoList = ["삼겹살", "당구","쀍뛝뙑"]; // test 를 위한 임시 toDoList
 
 function wswm(){
     var center = findCenter(); // 사용자들의 중간 위치 반환.
@@ -23,8 +19,11 @@ function wswm2(cen){
 
     while(!meet){ //이 장소에서 최종적으로 만날 수 있는지?
         for(var i = 0; i < toDoList.length; i++){ // 할일 목록인 toDoList가 있다고 가정 예 ) toDoList = ["삼겹살", "노래방", "방탈출카페", "당구장"]
-            searchPlace(toDoList[i], coordinate);             // center위치에서 toDoList에 있는 것들을 서치함.
-            if(result[i] == 0) {
+            var plac= toDoList[i];
+            searchPlace(plac, coordinate);
+            listPlace(i, plac, coordinate);// center위치에서 toDoList에 있는 것들을 서치함.
+
+            if(result[i+1] == 0) {
                 subMeet = false; // 즉 하고싶은 리스트 중 검색 안되는것이 있다면 그 장소에서는 만나면 안됨.
                 searched[i] = false;
             }

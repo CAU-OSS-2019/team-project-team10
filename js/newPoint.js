@@ -10,6 +10,8 @@ function newPoint() {
         clickedMarker(marker); // 정보창 띄우기 위한 함수
         startList.push(marker); // index.html에 선언된 startList에 마커 푸쉬
         appendByMarker(); // addedPlace에 '새 출발지' 띄움
+        startPosition_x.push(e.coord.x);
+        startPosition_y.push(e.coord.y);
     });
 }
 
