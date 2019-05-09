@@ -1,68 +1,103 @@
-function newPoint(map,markerList){
-    naver.maps.Event.addListener(map, 'click', function(e) {
+function newPoint() {
+    naver.maps.Event.addListener(map, 'click', function (e) {
         var marker = new naver.maps.Marker({
             position: e.coord,
             map: map,
             clickable: true,
-            name: markerList.length,
-            title: '새 출발지',
-            visible : true
+            title: '출발지'
         });
-        naver.maps.Event.addListener(marker, "click", function(e) {
-            delPointByMarker(marker);
-        });
-        markerList.push(marker);
-        appendBymarker(markerList);
-        delPoint(markerList);
-        changeName();
+
+        clickedMarker(marker); // 정보창 띄우기 위한 함수
+        startList.push(marker); // index.html에 선언된 startList에 마커 푸쉬
+        appendByMarker(); // addedPlace에 '새 출발지' 띄움
     });
 }
 
-function delPoint(markerList){
-    var order;
-    $('.delbtn').click(function(){
-        order=$(this).attr('name');
-        markerList[order].setMap(null);
-        markerList[order].visible=false;
-        $(document.getElementsByName(order)).remove();
-    });
-
-}
-
-function appendBymarker(markerList){
-    let text = `<li name ='${markerList.length-1}' class='nav-item'>
-    <a class='nav-link'>
-    <span data-feather='file-text'></span>새 출발지
-    <button type="button" class='changebtn' name='${markerList.length-1}' style="height:auto;width:auto"
-    onclick="">변경
-    </button>
-    <button type="button" class='delbtn' name='${markerList.length-1}' style="height:auto;width:auto"
-    onclick="">삭제
-    </button></a></li>`
+function appendByMarker() { // addedPlace에 '새 출발지' 띄움
+    let text = `<li class='nav-item'>
+    <a class='nav-link'>새 출발지 ${changeBtn()} ${delBtn()} </a></li>`;
     $('#addedPlace').append(text);
-}
+} 
 
-function delPointByMarker(marker){
-    marker.setMap(null);
-    marker.visible=false;
-    $(document.getElementsByName(marker.name)).remove();
-}
+function setInfo(marker) { // 정보창 생성하고 내용 집어넣는 함수
+    var inner = `
+    <div class="iw_inner">
+    <h3> ${marker.title}</h3>
+    </div>`;
 
-function changeName(){
-    var order;
-    $('.changebtn').click(function(){
-        var par = $(this).parents('a');
-        var cloneEle = par.children();
-        par.text('이름 변경됨');
+    var infowindow = new naver.maps.InfoWindow({
+        content: inner,
+        name: marker.position
+    });
+
+    infoList.push(infowindow);
+    return infowindow;
+} 
+
+function clickedMarker(marker) { // 마커 클릭했을 시 정보창 보여주고, 지워주는 함수
+    naver.maps.Event.addListener(marker, "click", function () {
+        var temp = 0;
+        var ninfo;
+
+        for (var i = 0; i < infoList.length; i++) {
+            if (infoList[i].getMap()) {
+                infoList[i].close();
+                temp = infoList[i].name;
+                infoList.splice(i, 1);
+                break;
+            }
+        }
+        ninfo = setInfo(marker);
+
+        if (temp == ninfo.name) {
+            infoList.pop();
+        }
+        else {
+            ninfo.open(map, marker);
+        }
+
+        temp = 0;
+
     });
 }
 
-function eMarkerList(markerList){
-    var new_list=[];
-    for(var i=0;i<markerList.length;i++){
-        if(markerList[i].visible){
-            new_list.push(markerList[i]);
+function btnController() { // 버튼의 동작 관리하는 함수
+    $('.delBtn').off().click(function () {
+        var cle = $(this).closest('li');
+        var i = cle.index();
+        startList[i].setMap(null);
+        for (var j = 0; j < infoList.length; j++) {
+            if (startList[i].position == infoList[j].name) {
+                infoList[j].close();
+                infoList.splice(j, 1);
+            }
         }
-    }
-   return new_list;
+        startList.splice(i, 1);
+        cle.remove();
+    });
+
+    $('.chnBtn').off().click(function () {
+        var cle = $(this).closest('a');
+        var i = $(this).closest('li').index();
+        var input = prompt('이름을 입력해주세요');
+        cle.text(input);
+        cle.append(' ' + changeBtn() + ' ' + delBtn());
+        startList[i].title = input;
+        setInfo(startList[i]);
+    });
+
+    $('.resBtn').off().click(function () {
+        for(var i=0;i<startList.length;i++){
+            startList[i].setMap(null);
+        }
+        for(var i=0;i<infoList.length;i++){
+            infoList[i].close();
+        }
+        $('.nav-item').remove();
+        startList=[];
+        infoList=[];
+     });
+
+     $('.addBtn').off().click(function () {
+     });
 }
