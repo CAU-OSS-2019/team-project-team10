@@ -1,4 +1,4 @@
-var a = 0;
+var imageIndex = 0;
 var searchedPlaces = [];
 var addedPlace = [];
 
@@ -13,24 +13,20 @@ function searchPlace(_keyword, _coordinate) {
                     console.log(placesData);
                     resolve(placesData);
 
-                    for (var i = 0; i < placesData.length; i++) {
-                        //if(placesData[i].distance < 10000) {
-                        console.log('check : ' + placesData[i].x + " " + placesData[i].y);
+                    for(var i=0; i<placesData.length; i++) {
                         var posit = new naver.maps.LatLng(placesData[i].y, placesData[i].x);
-
-                        var marker = new naver.maps.Marker({
-                            position: posit,
-                            map: map,
-                            icon: markerImageList[a]
-                        });
-
-                        markerList.push(marker);
-                        //}
+                        var contentString = [                                    
+                            '<div class="iw_inner">',
+                            '<h3>'+ placesData[i].name +'</h3>',
+                            '<p>' + placesData[i].jibun_address + ' | '+ placesData[i].road_address +'<br />',
+                            placesData[i].phone_number + '<br />' + '</p>',                               
+                            '</div>'
+                        ].join('');
+                            
+                        makeMarker(posit, contentString, imageIndex);                            
                     }
-                    a++;
-                    if (a > 6) {
-                        a = 0;
-                    }
+                    if (imageIndex < 5) imageIndex++;
+                    else imageIndex=0;
 
                 }).catch(err => {
                     console.error(err);
