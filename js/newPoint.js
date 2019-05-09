@@ -7,19 +7,19 @@ function newPoint() {
             title: '출발지'
         });
 
-        clickedMarker(marker);
-        startList.push(marker);
-        appendByMarker();
+        clickedMarker(marker); // 정보창 띄우기 위한 함수
+        startList.push(marker); // index.html에 선언된 startList에 마커 푸쉬
+        appendByMarker(); // addedPlace에 '새 출발지' 띄움
     });
 }
 
-function appendByMarker() {
+function appendByMarker() { // addedPlace에 '새 출발지' 띄움
     let text = `<li class='nav-item'>
     <a class='nav-link'>새 출발지 ${changeBtn()} ${delBtn()} </a></li>`;
     $('#addedPlace').append(text);
-}
+} 
 
-function setInfo(marker) {
+function setInfo(marker) { // 정보창 생성하고 내용 집어넣는 함수
     var inner = `
     <div class="iw_inner">
     <h3> ${marker.title}</h3>
@@ -32,34 +32,36 @@ function setInfo(marker) {
 
     infoList.push(infowindow);
     return infowindow;
-}
+} 
 
-function clickedMarker(marker) {
+function clickedMarker(marker) { // 마커 클릭했을 시 정보창 보여주고, 지워주는 함수
     naver.maps.Event.addListener(marker, "click", function () {
-        var i = 0;
+        var temp = 0;
         var ninfo;
-        for (i = 0; i < infoList.length; i++) {
+
+        for (var i = 0; i < infoList.length; i++) {
             if (infoList[i].getMap()) {
                 infoList[i].close();
+                temp = infoList[i].name;
+                infoList.splice(i, 1);
                 break;
             }
         }
         ninfo = setInfo(marker);
-        if (i == infoList.length - 1) {
-            ninfo.open(map, marker);
-        }
-        else if (infoList[i].name != ninfo.name) {
-            ninfo.open(map, marker);
+
+        if (temp == ninfo.name) {
+            infoList.pop();
         }
         else {
-            infoList.splice(i, 1);
+            ninfo.open(map, marker);
         }
-        i = 0;
+
+        temp = 0;
 
     });
 }
 
-function btnController() {
+function btnController() { // 버튼의 동작 관리하는 함수
     $('.delBtn').off().click(function () {
         var cle = $(this).closest('li');
         var i = cle.index();
@@ -83,4 +85,19 @@ function btnController() {
         startList[i].title = input;
         setInfo(startList[i]);
     });
+
+    $('.resBtn').off().click(function () {
+        for(var i=0;i<startList.length;i++){
+            startList[i].setMap(null);
+        }
+        for(var i=0;i<infoList.length;i++){
+            infoList[i].close();
+        }
+        $('.nav-item').remove();
+        startList=[];
+        infoList=[];
+     });
+
+     $('.addBtn').off().click(function () {
+     });
 }

@@ -82,6 +82,10 @@
                     <ul id="addedPlace" class="nav flex-column mb-2">
 
                     </ul>
+                    <ul id="addcontainer">   
+                    </ul>
+                    <ul id="resetcontainer" >
+                    </ul>
                     <form>
                         <input type="button" value="중간위치 찾기" onclick="findCenter()">
                     </form>
@@ -114,13 +118,15 @@
         var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
         var startList = [];
         var infoList = [];
+        
+        $('#addcontainer').append(addBtn());
+        $('#resetcontainer').append(resetBtn());
+
 
         newPoint();
         $(document).on("click", map, function (e) {
             btnController();
         });
-
-
 
         // 검색창 keyup eventListener. 자동완성 때 사용.
         document.getElementById('searchWindow').addEventListener('keyup', function (event) {
