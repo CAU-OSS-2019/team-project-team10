@@ -2,11 +2,6 @@
 
 Multi Location based gathering place recommendation service.
 
-### Stack
-
-- NodeJs
-- NginX
-
 ## Protocol
 
 NodeJs Express : 165.194.35.214:26656
@@ -55,10 +50,3 @@ function searchPlace(_keyword){
     })
 }
 ```
-
-## To-do
-
-- Basic milestones.
-- Show more plenty infomations of the places in Map. (Out of bound in MVP?)
-- Added places should be able to deleted from 'ADDED_PLACES'.
-- Replace 'Map Rendering logic' from client to Express.
