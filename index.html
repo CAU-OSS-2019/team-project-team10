@@ -53,56 +53,47 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-3" href="#">WhereShallWeMeet</a>
-        <input id="searchWindow" class="form-control form-control-dark w-100" type="text" placeholder="Search"
-            aria-label="Search">
-    </nav>
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-3" href="#">WhereShallWeMeet</a>
+    <input id="searchWindow" class="form-control form-control-dark w-100" type="text" placeholder="Search"
+           aria-label="Search">
+</nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <h6
-                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>SEARCHED_PLACES</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
-                            <span data-feather="plus-circle"></span>
-                        </a>
-                    </h6>
-                    <ul id="searchedPlace" class="nav flex-column mb-2">
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>SEARCHED_PLACES</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul id="searchedPlace" class="nav flex-column mb-2">
 
-                    </ul>
-                    <h6
-                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>ADDED_PLACES</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
-                            <span data-feather="plus-circle"></span>
-                        </a>
-                    </h6>
-                    <ul id="addedPlace" class="nav flex-column mb-2">
+                </ul>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>ADDED_PLACES</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul id="addedPlace" class="nav flex-column mb-2">
 
-                    </ul>
-                    <ul id="addcontainer">   
-                    </ul>
-                    <ul id="resetcontainer" >
-                    </ul>
-                    <form>
-                        <input type="button" value="중간위치 찾기" onclick="findCenter()">
-                    </form>
-                </div>
-            </nav>
+                </ul>
+                <form>
+                    <input type="button" value="중간위치 찾기" onclick="wswm()">
+                </form>
+            </div>
+        </nav>
 
-            <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                </div>
+        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
 
-                <!-- Naver Maps api -->
-                <div id="map" style="width:100%;height:900px;"></div>
-                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-            </main>
-        </div>
+            <!-- Naver Maps api -->
+            <div id="map" style="width:100%;height:900px;"></div>
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+        </main>
     </div>
 
     <script>
