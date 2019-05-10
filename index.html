@@ -82,10 +82,8 @@
                 <ul id="addedPlace" class="nav flex-column mb-2">
 
                 </ul>
-                <form>
                     <input type="button" value="중간위치 찾기" onclick="wswm()">
-                </form>
-            </div>
+                </div>
         </nav>
 
         <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
@@ -113,6 +111,9 @@
         var infoList = [];
         var startPosition_x = [];
         var startPosition_y = [];
+        var result = [];
+
+        var toDoList = ["삼겹살", "당구장", "뷁뛝뙈ㅔㄺ"]; // test를 위한 임시 toDoList
         
         $('#addcontainer').append(addBtn());
         $('#resetcontainer').append(resetBtn());
