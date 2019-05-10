@@ -12,6 +12,7 @@ function searchPlace(_keyword, _coordinate) {
                     var placesData = JSON.parse(body).places;
                     console.log(placesData);
                     resolve(placesData);
+                    result.push(placesData.length);
 
                     for(var i=0; i<placesData.length; i++) {
                         var posit = new naver.maps.LatLng(placesData[i].y, placesData[i].x);
@@ -55,8 +56,8 @@ function listPlace(_idx, _placeQuery, _coordinate) {
 
 function appendPlace(i) {
     // 중복 검사 필요함
-    console.log(i);
-    console.log(searchedPlaces[i]);
     let text = `<li class='nav-item'><a class='nav-link' onclick="#"><span data-feather='file-text'></span>${searchedPlaces[i].name}</a></li>`;
     $('#addedPlace').append(text);
+
+    addedPlace.push(searchedPlaces[i]);
 }
