@@ -3,8 +3,6 @@ var meet = false;   // 만나야하는 최종 장소 결정.
 var searched = [];  // 첫번 째 시도에서 탐색이 되었는지?
 var resultPlace = [];
 
-var toDoList = ["삼겹살", "당구","쀍뛝뙑"]; // test 를 위한 임시 toDoList
-
 function wswm(){
     console.log(result);
     var center = findCenter(); // 사용자들의 중간 위치 반환.
