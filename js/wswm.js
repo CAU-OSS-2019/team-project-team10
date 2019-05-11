@@ -11,38 +11,45 @@ function wswm(){
     return a;
 }
 
-function wswm2(cen){
+async function wswm2(cen){
     console.log(cen);
     
     var coordinate = cen[0] + "," + cen[1];
 
     while(!meet){ //이 장소에서 최종적으로 만날 수 있는지?
+        while(result.length!==toDoList.length){
         for(var i = 0; i < toDoList.length; i++){ // 할일 목록인 toDoList가 있다고 가정 예 ) toDoList = ["삼겹살", "노래방", "방탈출카페", "당구장"]
             var plac= toDoList[i];
-            //searchPlace(plac, coordinate);
-            //listPlace(i, plac, coordinate);// center위치에서 toDoList에 있는 것들을 서치함.
+            await searchPlace(plac, coordinate).then(function (resolvedData){
+                result.push(resolvedData.length);
+            })
+
             console.log(result);
-            if(result[i+1] == 0) {
-                subMeet = false; // 즉 하고싶은 리스트 중 검색 안되는것이 있다면 그 장소에서는 만나면 안됨.
-                searched[i] = false;
-            }
-            else{
-                searched[i] = true;
-            }
+                if(result[i] == 0) {
+                    subMeet = false; // 즉 하고싶은 리스트 중 검색 안되는것이 있다면 그 장소에서는 만나면 안됨.
+                    searched[i] = false;
+                }
+                else{
+                    searched[i] = true;
+                }
+            //listPlace(i, plac, coordinate);// center위치에서 toDoList에 있는 것들을 서치함.
         }
-        console.log("만날까말까~");
+    }
+    
         if(subMeet){
             meet = true; // 결론적으로 현재 center에서 만나면 된다.
             return cen;
         }
         else{ //첫번 째 시도에서 구한 center에서 만날 수 없다면 center를 옮겨줘야 한다.
             while(!meet){
-                subMeet=true;
+                meet=true;
                 for(var i = 0; i < toDoList.length; i++){
-                    searchPlace(toDoList[i], coordinate); // center를 기준으로 점점 넓은 범위 탐색. meet이 true가 될 때 까지
+                    await searchPlace(toDoList[i], coordinate).then(function (resolvedData){
+                        result.push(resolvedData.length);
+                    }) // center를 기준으로 점점 넓은 범위 탐색. meet이 true가 될 때 까지
                     console.log(result);
                     if(result[i] == 0){
-                        subMeet = false;
+                        meet = false;
                     }
                 }
             }

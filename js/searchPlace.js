@@ -12,7 +12,6 @@ function searchPlace(_keyword, _coordinate) {
                     var placesData = JSON.parse(body).places;
                     console.log(placesData);
                     resolve(placesData);
-                    result.push(placesData.length);
 
                     for(var i=0; i<placesData.length; i++) {
                         var posit = new naver.maps.LatLng(placesData[i].y, placesData[i].x);
