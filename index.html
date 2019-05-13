@@ -16,7 +16,6 @@
             -ms-user-select: none;
             user-select: none;
         }
-
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -42,7 +41,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script type="text/javascript"
-        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sx4y6v49bc"></script>
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sx4y6v49bc&submodules=geocoder"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/searchPlace.js"></script>
     <script src="js/makeMarker.js"></script>
@@ -50,7 +49,7 @@
     <script src="js/newPoint.js"></script>
     <script src="js/wswm.js"></script>
     <script src="js/btnList.js"></script>
-    <script src="js/wswm.js"></script>
+    <script src="js/btnController.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
 </head>
 
@@ -83,6 +82,12 @@
                 <ul id="addedPlace" class="nav flex-column mb-2">
 
                 </ul>
+                <ul id="addcontainer" >
+
+                </ul>
+                <ul id="resetcontainer" >
+
+                </ul>
                     <input type="button" value="중간위치 찾기" onclick="wswm()">
                 </div>
         </nav>
@@ -103,9 +108,7 @@
             zoomControl: true,
             zoom: 10
         };
-
         var map = new naver.maps.Map('map', mapOptions);
-
         var markerList = [];
         var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
         var startList = [];
@@ -113,28 +116,22 @@
         var startPosition_x = [];
         var startPosition_y = [];
         var result = [];
-
         var toDoList = ["삼겹살", "당구장", "뷁뛝뙈ㅔㄺ"]; // test를 위한 임시 toDoList
         
         $('#addcontainer').append(addBtn());
         $('#resetcontainer').append(resetBtn());
-
-
-        newPoint();
-        $(document).on("click", map, function (e) {
+        
+        $(document).ready(function () {
             btnController();
         });
-
         // 검색창 keyup eventListener. 자동완성 때 사용.
         document.getElementById('searchWindow').addEventListener('keyup', function (event) {
             console.log("key up event : " + event);
         });
-
         // 검색창 change eventListener. 검색결과 사용.
         document.getElementById('searchWindow').addEventListener('change', function (event) {
             var idx = document.getElementById('searchedPlace').children.length;
             var placeQuery = this.value;
-
             // bracket 없는 comma concatenated string으로 전달
             var coordinate = map.center.x + "," + map.center.y;
             listPlace(idx, placeQuery, coordinate);

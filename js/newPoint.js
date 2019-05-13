@@ -1,105 +1,146 @@
-function newPoint() {
-    naver.maps.Event.addListener(map, 'click', function (e) {
-        var marker = new naver.maps.Marker({
-            position: e.coord,
+function newAddedList(name) { // ADDED_PLACE에 추가
+    let text = `<li class='nav-item'>
+    <a class='nav-link'>${name} ${changeBtn()} ${delBtn()} </a></li>`;
+    $('#addedPlace').append(text);
+    $(document).ready(function(){ // 동적으로 생성된 버튼에 이벤트 추가
+        btnController();
+    });
+} 
+
+function newPoint(name,address) { // 마커와 정보창 추가
+    naver.maps.Service.geocode({
+        query: address
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+            return alert('Something Wrong!');
+        }
+        
+        if (response.v2.meta.totalCount === 0) {
+            return alert('잘못된 주소 입니다.');
+        }
+
+        var htmlAddresses = [],
+            item = response.v2.addresses[0],
+            point = new naver.maps.Point(item.x, item.y); // 좌표
+
+            var infowindow = new naver.maps.InfoWindow({ // 새로운 정보창
+                name: point
+            });
+
+        if (item.roadAddress) {
+            htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
+        }
+
+        if (item.jibunAddress) {
+            htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
+        }
+
+        if (item.englishAddress) {
+            htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
+        }
+
+        infowindow.setContent([ // 정보창 내용 set
+            '<div style="padding:10px;min-width:200px;line-height:150%;">',
+            '<h4 class='+point+' style="margin-top:5px;">'+ name +'</h4><br />',
+            htmlAddresses.join('<br />'),
+            '</div>'
+        ].join('\n'));
+
+        var marker = new naver.maps.Marker({ // 새로운 마커
+            position: point,
             map: map,
             clickable: true,
-            title: '출발지'
         });
+    
+        infowindow.open(map, marker); // 정보창 열린 상태로 추가
 
-        clickedMarker(marker); // 정보창 띄우기 위한 함수
-        startList.push(marker); // index.html에 선언된 startList에 마커 푸쉬
-        appendByMarker(); // addedPlace에 '새 출발지' 띄움
+        naver.maps.Event.addListener(marker, "click", function(e) { 
+            if (infowindow.getMap()) {
+                infowindow.close();
+            } else {
+                infowindow.open(map, marker);
+            }
+        });
+    
+        startList.push(marker);
+        infoList.push(infowindow); // 배열에 추가
+        map.setCenter(point);
+        newAddedList(name);
         startPosition_x.push(e.coord.x);
         startPosition_y.push(e.coord.y);
     });
 }
 
-function appendByMarker() { // addedPlace에 '새 출발지' 띄움
-    let text = `<li class='nav-item'>
-    <a class='nav-link'>새 출발지 ${changeBtn()} ${delBtn()} </a></li>`;
-    $('#addedPlace').append(text);
-} 
+/* function makeAddress(item) {
+    if (!item) {
+        return;
+    }
 
-function setInfo(marker) { // 정보창 생성하고 내용 집어넣는 함수
-    var inner = `
-    <div class="iw_inner">
-    <h3> ${marker.title}</h3>
-    </div>`;
+    var name = item.name,
+        region = item.region,
+        land = item.land,
+        isRoadAddress = name === 'roadaddr';
 
-    var infowindow = new naver.maps.InfoWindow({
-        content: inner,
-        name: marker.position
-    });
+    var sido = '', sigugun = '', dongmyun = '', ri = '', rest = '';
 
-    infoList.push(infowindow);
-    return infowindow;
-} 
+    if (hasArea(region.area1)) {
+        sido = region.area1.name;
+    }
 
-function clickedMarker(marker) { // 마커 클릭했을 시 정보창 보여주고, 지워주는 함수
-    naver.maps.Event.addListener(marker, "click", function () {
-        var temp = 0;
-        var ninfo;
+    if (hasArea(region.area2)) {
+        sigugun = region.area2.name;
+    }
 
-        for (var i = 0; i < infoList.length; i++) {
-            if (infoList[i].getMap()) {
-                infoList[i].close();
-                temp = infoList[i].name;
-                infoList.splice(i, 1);
-                break;
+    if (hasArea(region.area3)) {
+        dongmyun = region.area3.name;
+    }
+
+    if (hasArea(region.area4)) {
+        ri = region.area4.name;
+    }
+
+    if (land) {
+        if (hasData(land.number1)) {
+            if (hasData(land.type) && land.type === '2') {
+                rest += '산';
+            }
+
+            rest += land.number1;
+
+            if (hasData(land.number2)) {
+                rest += ('-' + land.number2);
             }
         }
-        ninfo = setInfo(marker);
 
-        if (temp == ninfo.name) {
-            infoList.pop();
-        }
-        else {
-            ninfo.open(map, marker);
-        }
+        if (isRoadAddress === true) {
+            if (checkLastString(dongmyun, '면')) {
+                ri = land.name;
+            } else {
+                dongmyun = land.name;
+                ri = '';
+            }
 
-        temp = 0;
-
-    });
-}
-
-function btnController() { // 버튼의 동작 관리하는 함수
-    $('.delBtn').off().click(function () {
-        var cle = $(this).closest('li');
-        var i = cle.index();
-        startList[i].setMap(null);
-        for (var j = 0; j < infoList.length; j++) {
-            if (startList[i].position == infoList[j].name) {
-                infoList[j].close();
-                infoList.splice(j, 1);
+            if (hasAddition(land.addition0)) {
+                rest += ' ' + land.addition0.value;
             }
         }
-        startList.splice(i, 1);
-        cle.remove();
-    });
+    }
 
-    $('.chnBtn').off().click(function () {
-        var cle = $(this).closest('a');
-        var i = $(this).closest('li').index();
-        var input = prompt('이름을 입력해주세요');
-        cle.text(input);
-        cle.append(' ' + changeBtn() + ' ' + delBtn());
-        startList[i].title = input;
-        setInfo(startList[i]);
-    });
-
-    $('.resBtn').off().click(function () {
-        for(var i=0;i<startList.length;i++){
-            startList[i].setMap(null);
-        }
-        for(var i=0;i<infoList.length;i++){
-            infoList[i].close();
-        }
-        $('.nav-item').remove();
-        startList=[];
-        infoList=[];
-     });
-
-     $('.addBtn').off().click(function () {
-     });
+    return [sido, sigugun, dongmyun, ri, rest].join(' ');
 }
+
+function hasArea(area) {
+    return !!(area && area.name && area.name !== '');
+}
+
+function hasData(data) {
+    return !!(data && data !== '');
+}
+
+function checkLastString (word, lastString) {
+    return new RegExp(lastString + '$').test(word);
+}
+
+function hasAddition (addition) {
+    return !!(addition && addition.value);
+} */
