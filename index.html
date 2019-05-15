@@ -64,6 +64,16 @@
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
+                <input id="whatToDo" type="text" aria-label="Search" placeholder="What you want to do?">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>ToDoList</span>
+                        <a class="d-flex align-items-center text-muted" href="#">
+                            <span data-feather="plus-circle"></span>
+                        </a>
+                    </h6>
+                    <ul id="toDoList" class="nav flex-column mb-2">
+    
+                    </ul>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>SEARCHED_PLACES</span>
                     <a class="d-flex align-items-center text-muted" href="#">
@@ -116,7 +126,8 @@
         var startPosition_x = [];
         var startPosition_y = [];
         var result = [];
-        var toDoList = ["삼겹살", "당구장", "뷁뛝뙈ㅔㄺ"]; // test를 위한 임시 toDoList
+
+        var toDoList = []; // test를 위한 임시 toDoList
         
         $('#addcontainer').append(addBtn());
         $('#resetcontainer').append(resetBtn());
@@ -135,6 +146,17 @@
             // bracket 없는 comma concatenated string으로 전달
             var coordinate = map.center.x + "," + map.center.y;
             listPlace(idx, placeQuery, coordinate);
+        })
+
+        //할일 목록 작성하기.
+        document.getElementById('whatToDo').addEventListener('change', function (event) {
+            var toDo = document.getElementById('whatToDo').value;
+            toDoList.push(toDo);
+
+            let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+            $('#toDoList').append(text);
+
+            console.log(toDoList);
         })
     </script>
 
