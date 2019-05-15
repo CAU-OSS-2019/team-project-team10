@@ -56,9 +56,10 @@ async function wswm2(cen){
 
             for(var i = 0 ; i < toDoList.length; i++){ // 범위를 넓혀가며 탐색 도중 찾고자 하는 장소를 다 찾았다면 발견된 장소에서 다시 서치를 한다.
                 if(!searched[i]){
-                    searchPlace(toDoList[i], coordinatex);
-                    newCenter.x = resultPlace[0].x;
-                    newCenter.y = resultPlace[0].y;
+                    await searchPlace(toDoList[i], coordinate).then(function (resolvedData){
+                        newCenter.x = resolvedData[0].x;
+                        newCenter.y = resolvedData[0].y;
+                    });
                 }
             }
 
