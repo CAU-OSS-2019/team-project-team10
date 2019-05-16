@@ -5,7 +5,7 @@ var addedPlace = [];
 function searchPlace(_keyword, _coordinate) {
     console.log("searchplace _coordinate : ", _coordinate);
     return new Promise(function (resolve, reject) {
-        fetch(`http://165.194.35.214:26656/?keyword=${_keyword}&coordinate=${_coordinate}`)
+        fetch(`http://165.194.35.214:26756/?keyword=${_keyword}&coordinate=${_coordinate}`)
             .then(function (res) {
                 // Response as Promise
                 res.json().then(body => {
