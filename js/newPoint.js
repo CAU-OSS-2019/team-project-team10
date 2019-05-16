@@ -66,8 +66,8 @@ function newPoint(name,address) { // 마커와 정보창 추가
         infoList.push(infowindow); // 배열에 추가
         map.setCenter(point);
         newAddedList(name);
-        startPosition_x.push(e.coord.x);
-        startPosition_y.push(e.coord.y);
+        startPosition_x.push(item.x);
+        startPosition_y.push(item.y);
     });
 }
 
