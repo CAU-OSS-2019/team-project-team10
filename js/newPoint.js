@@ -7,69 +7,63 @@ function newAddedList(name) { // ADDED_PLACE에 추가
     });
 } 
 
-function newPoint(name,address) { // 마커와 정보창 추가
-    naver.maps.Service.geocode({
-        query: address
-    }, function(status, response) {
-        if (status === naver.maps.Service.Status.ERROR) {
-            return alert('Something Wrong!');
-        }
+function newPoint(name,address){
+    var geocoder = new daum.maps.services.Geocoder();
+
+    geocoder.addressSearch(address, function(result, status) {
+
+         if (status === daum.maps.services.Status.OK) {
+            var point = new daum.maps.LatLng(result[0].y, result[0].x);
+
+            var marker = new daum.maps.Marker({
+                map: map,
+                position: point
+            });
+    
+            var infowindow = new daum.maps.InfoWindow({
+                name: point,
+                removable : true
+            });
+            var htmlAddresses = [];
+
+            if (result[0].road_address) {
+                htmlAddresses.push('[도로명 주소] ' + result[0].road_address.address_name);
+            }
+    
+            if (result[0].address) {
+                htmlAddresses.push('[지번 주소] ' + result[0].address.address_name);
+            }
+
+            infowindow.setContent([ // 정보창 내용 set
+                '<div style="padding:10px;min-width:300px;line-height:150%;">',
+                '<h4 class='+point+' style="margin-top:5px;">'+ name +'</h4><br />',
+                htmlAddresses.join('<br />'),
+                '</div>'
+            ].join('\n'));
+
+            daum.maps.event.addListener(marker, "click", function(e) { 
+                if (infowindow.getMap()) {
+                    infowindow.close();
+                } else {
+                    infowindow.open(map, marker);
+                }
+            });
         
-        if (response.v2.meta.totalCount === 0) {
+            infowindow.open(map, marker);
+            startList.push(marker);
+            infoList.push(infowindow); // 배열에 추가
+            newAddedList(name);
+            map.setCenter(point);
+            startPosition_x.push(result[0].x);
+            startPosition_y.push(result[0].y);
+        } 
+        else{
             return alert('잘못된 주소 입니다.');
         }
+    });    
 
-        var htmlAddresses = [],
-            item = response.v2.addresses[0],
-            point = new naver.maps.Point(item.x, item.y); // 좌표
-
-            var infowindow = new naver.maps.InfoWindow({ // 새로운 정보창
-                name: point
-            });
-
-        if (item.roadAddress) {
-            htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
-        }
-
-        if (item.jibunAddress) {
-            htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
-        }
-
-        if (item.englishAddress) {
-            htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
-        }
-
-        infowindow.setContent([ // 정보창 내용 set
-            '<div style="padding:10px;min-width:200px;line-height:150%;">',
-            '<h4 class='+point+' style="margin-top:5px;">'+ name +'</h4><br />',
-            htmlAddresses.join('<br />'),
-            '</div>'
-        ].join('\n'));
-
-        var marker = new naver.maps.Marker({ // 새로운 마커
-            position: point,
-            map: map,
-            clickable: true,
-        });
-    
-        infowindow.open(map, marker); // 정보창 열린 상태로 추가
-
-        naver.maps.Event.addListener(marker, "click", function(e) { 
-            if (infowindow.getMap()) {
-                infowindow.close();
-            } else {
-                infowindow.open(map, marker);
-            }
-        });
-    
-        startList.push(marker);
-        infoList.push(infowindow); // 배열에 추가
-        map.setCenter(point);
-        newAddedList(name);
-        startPosition_x.push(item.x);
-        startPosition_y.push(item.y);
-    });
 }
+
 
 /* function makeAddress(item) {
     if (!item) {

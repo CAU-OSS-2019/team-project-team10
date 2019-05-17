@@ -42,13 +42,14 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sx4y6v49bc&submodules=geocoder"></script>
+    <script type="text/javascript" 
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eddb65c6ffd9f693777d35d9ff66e70e&libraries=services"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/searchPlace.js"></script>
     <script src="js/makeMarker.js"></script>
     <script src="js/findCenter.js"></script>
     <script src="js/newPoint.js"></script>
     <script src="js/wswm.js"></script>
-    <script src="andOrApplied"></script>
     <script src="js/btnList.js"></script>
     <script src="js/btnController.js"></script>
     <script src="js/lane.js"></script>
@@ -66,19 +67,16 @@
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-                <input id="whatToDo" type="text" aria-label="Search" placeholder="             What you want to do?" size="32">
+                <input id="whatToDo" type="text" aria-label="Search" placeholder="What you want to do?">
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>ToDoList</span>
                         <a class="d-flex align-items-center text-muted" href="#">
                             <span data-feather="plus-circle"></span>
-                            <input id="buttonAND" type="button" value="AND">
-                            <input id="buttonOR" type="button" value="OR">
                         </a>
                     </h6>
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <ul id="toDoList" class="nav flex-column mb-2">   </ul>
-                        <ul id="andOrList" class="nav flex-column mb-2">   </ul>    <!--list to append and, or text-->
-                    </h6>                
+                    <ul id="toDoList" class="nav flex-column mb-2">
+    
+                    </ul>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>SEARCHED_PLACES</span>
                     <a class="d-flex align-items-center text-muted" href="#">
@@ -111,20 +109,18 @@
         <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
 
-            <!-- Naver Maps api -->
             <div id="map" style="width:100%;height:900px;"></div>
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         </main>
     </div>
 
     <script>
-        var mapOptions = {
-            // center 지정 안함으로 default 서울시청
-            // center: new naver.maps.LatLng(37.3595963, 127.1054328),
-            zoomControl: true,
-            zoom: 10
-        };
-        var map = new naver.maps.Map('map', mapOptions);
+       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = { 
+            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨 
+        }
+        var map = new daum.maps.Map(mapContainer, mapOption); 
         var markerList = [];
         var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
         var startList = [];
@@ -132,9 +128,7 @@
         var startPosition_x = [];
         var startPosition_y = [];
         var result = [];
-
         var toDoList = []; // test를 위한 임시 toDoList
-        var toDoAndOrList = [];
         
         $('#addcontainer').append(addBtn());
         $('#resetcontainer').append(resetBtn());
@@ -151,7 +145,9 @@
             var idx = document.getElementById('searchedPlace').children.length;
             var placeQuery = this.value;
             // bracket 없는 comma concatenated string으로 전달
-            var coordinate = map.center.x + "," + map.center.y;
+            var center = map.getCenter();
+            var coordinate = center.getLat() + "," + center.getLng();
+            console.log(coordinate);
             listPlace(idx, placeQuery, coordinate, 500);
         })
 
@@ -159,32 +155,9 @@
         document.getElementById('whatToDo').addEventListener('change', function (event) {
             var toDo = document.getElementById('whatToDo').value;
             toDoList.push(toDo);
-
             let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
             $('#toDoList').append(text);
-
             console.log(toDoList);
-        })
-
-        document.getElementById('buttonAND').addEventListener('click', function (event) {
-            if (toDoList.length > toDoAndOrList.length) {
-                toDoAndOrList.push(0);
-
-                let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${"AND"}</a></li>`;
-                $('#andOrList').append(text);
-
-                console.log(toDoAndOrList + " add AND");
-            }           
-        })
-        document.getElementById('buttonOR').addEventListener('click', function (event) {
-            if (toDoList.length > toDoAndOrList.length) {
-                toDoAndOrList.push(1);
-
-                let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${"OR"}</a></li>`;
-                $('#andOrList').append(text);
-
-                console.log(toDoAndOrList + " add OR");
-            }           
         })
     </script>
 
