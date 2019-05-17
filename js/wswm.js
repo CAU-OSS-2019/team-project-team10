@@ -20,6 +20,7 @@ async function wswm2(cen){
     var coordinate = cen[0] + "," + cen[1];
 
     while(!meet){ //이 장소에서 최종적으로 만날 수 있는지?
+
         for(var i = 0; i < toDoList.length; i++){ // 할일 목록인 toDoList가 있다고 가정 예 ) toDoList = ["삼겹살", "노래방", "방탈출카페", "당구장"]
             var plac= toDoList[i];
             await searchPlace(plac, coordinate, 1500).then(function (resolvedData){
@@ -28,7 +29,7 @@ async function wswm2(cen){
 
             console.log(result);
                 if(result[i] == 0) {
-                    subMeet = false; // 즉 하고싶은 리스트 중 검색 안되는것이 있다면 그 장소에서는 만나면 안됨.
+                    //subMeet = false; // 즉 하고싶은 리스트 중 검색 안되는것이 있다면 그 장소에서는 만나면 안됨. 잠시 주석처리!
                     searched.push(false);
                 }
                 else{
@@ -36,7 +37,10 @@ async function wswm2(cen){
                 }
             //listPlace(i, plac, coordinate);// center위치에서 toDoList에 있는 것들을 서치함.
         }
-    
+
+        // AND OR 옵션 적용
+        subMeet = andOrApplied();
+        
         if(subMeet){
             meet = true; // 결론적으로 현재 center에서 만나면 된다.
             return cen;
@@ -71,6 +75,5 @@ async function wswm2(cen){
         }
             return wswm2(newCenter); // 이 방식을 재귀적으로 구현. 최종적으로 모든 list가 포함된 center값이 return 된다.
         }
-
     }
 }
