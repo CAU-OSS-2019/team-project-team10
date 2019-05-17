@@ -57,7 +57,7 @@ function listPlace(_idx, _keyword, _coordinate, _radius) {
 
 function appendPlace(i) {
     // 중복 검사 필요함
-    let text = `<li class='nav-item'><a class='nav-link' onclick="#"><span data-feather='file-text'></span>${searchedPlaces[i].name}</a></li>`;
+    let text = `<li class='nav-item'><a class='nav-link' onclick="#"><span data-feather='file-text'></span>${searchedPlaces[i].place_name}</a></li>`;
     $('#addedPlace').append(text);
 
     addedPlace.push(searchedPlaces[i]);
