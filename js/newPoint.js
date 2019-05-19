@@ -17,13 +17,14 @@ function newPoint(name,address){
 
             var marker = new daum.maps.Marker({
                 map: map,
-                position: point
+                position: point,
+                title: name
             });
     
             var infowindow = new daum.maps.InfoWindow({
-                name: point,
                 removable : true
             });
+            
             var htmlAddresses = [];
 
             if (result[0].road_address) {
@@ -34,13 +35,15 @@ function newPoint(name,address){
                 htmlAddresses.push('[지번 주소] ' + result[0].address.address_name);
             }
 
+
             infowindow.setContent([ // 정보창 내용 set
                 '<div style="padding:10px;min-width:300px;line-height:150%;">',
-                '<h4 class='+point+' style="margin-top:5px;">'+ name +'</h4><br />',
+                '<h4 class='+name+' style="margin-top:5px;">'+ name +'</h4><br />',
                 htmlAddresses.join('<br />'),
                 '</div>'
             ].join('\n'));
 
+            console.log(infowindow.getContent());
             daum.maps.event.addListener(marker, "click", function(e) { 
                 if (infowindow.getMap()) {
                     infowindow.close();
@@ -52,6 +55,7 @@ function newPoint(name,address){
             infowindow.open(map, marker);
             startList.push(marker);
             infoList.push(infowindow); // 배열에 추가
+            nameList.push(name);
             newAddedList(name);
             map.setCenter(point);
             startPosition_x.push(result[0].x);
