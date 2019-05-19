@@ -1,15 +1,23 @@
 function makeMarker(posit, contentString, imageIndex){
-    var marker = new naver.maps.Marker({
+
+    var imageSrc = markerImageList[imageIndex];
+    var imageSize = new daum.maps.Size(36, 41);
+    var imageOption = {};
+
+    var markerImage = new daum.maps.MarkerImage(imageSrc,imageSize,imageOption);
+
+    var marker = new daum.maps.Marker({
         position: posit,
         map: map,
-        icon: markerImageList[imageIndex]
+        image: markerImage
     });
                     
-    var infowindow = new naver.maps.InfoWindow({
-        content: contentString
+    var infowindow = new daum.maps.InfoWindow({
+        content: contentString,
+        removable: true
     });
     
-    naver.maps.Event.addListener(marker, "click", function(e) {
+    daum.maps.event.addListener(marker, "click", function(e) {
         if (infowindow.getMap()) {
             infowindow.close();
         } else {
