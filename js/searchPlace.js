@@ -19,7 +19,7 @@ function searchPlace(_keyword, _coordinate, _radius) {
                     resolve(placesData);
 
                     for(var i=0; i<placesData.length; i++) {
-                        var posit = new naver.maps.LatLng(placesData[i].y, placesData[i].x);
+                        var posit = new daum.maps.LatLng(placesData[i].y, placesData[i].x);
                         var contentString = [
                             '<div class="iw_inner">',
                             '<h3>'+ placesData[i].place_name +'</h3>',
