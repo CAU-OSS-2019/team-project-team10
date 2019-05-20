@@ -18,18 +18,18 @@ function searchPlace(_keyword, _coordinate, _radius) {
                     console.log(placesData);
                     resolve(placesData);
 
-                    for(var i=0; i<placesData.length; i++) {
-                        var posit = new naver.maps.LatLng(placesData[i].y, placesData[i].x);
-                        var contentString = [
-                            '<div class="iw_inner">',
-                            '<h3>'+ placesData[i].place_name +'</h3>',
-                            '<p>' + placesData[i].address_name + ' | '+ placesData[i].road_address_name +'<br />',
-                            placesData[i].phone + '<br />' + '</p>',
-                            '</div>'
-                        ].join('');
+                    // for(var i=0; i<placesData.length; i++) {
+                    //     var posit = new naver.maps.LatLng(placesData[i].y, placesData[i].x);
+                    //     var contentString = [
+                    //         '<div class="iw_inner">',
+                    //         '<h3>'+ placesData[i].place_name +'</h3>',
+                    //         '<p>' + placesData[i].address_name + ' | '+ placesData[i].road_address_name +'<br />',
+                    //         placesData[i].phone + '<br />' + '</p>',
+                    //         '</div>'
+                    //     ].join('');
 
-                        makeMarker(posit, contentString, imageIndex);
-                    }
+                    //     makeMarker(posit, contentString, imageIndex);
+                    // }
                     if (imageIndex < 5) imageIndex++;
                     else imageIndex=0;
                 }).catch(err => {

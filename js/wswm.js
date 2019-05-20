@@ -1,6 +1,6 @@
 var subMeet;// 이 장소에서 만날 수 있는지?
 var meet;// 만나야하는 최종 장소 결정.
-var searched = [];  // 첫번 째 시도에서 탐색이 되었는지?
+var searched;  // 첫번 째 시도에서 탐색이 되었는지?
 var resultPlace = [];
 var newCenter=[];
 
@@ -9,17 +9,18 @@ function wswm(){
     var center = findCenter(); // 사용자들의 중간 위치 반환.
     //var center = [37.509218, 126.963359]; //test 를 위한 임시 center
     var a = wswm2(center);
+    console.log(a);
     return a;
 }
 
 async function wswm2(cen){
     subMeet=true;
     meet=false;
+    searched=[];
+    result=[];
     console.log(cen);
     
     var coordinate = cen[0] + "," + cen[1];
-
-    while(!meet){ //이 장소에서 최종적으로 만날 수 있는지?
 
         for(var i = 0; i < toDoList.length; i++){ // 할일 목록인 toDoList가 있다고 가정 예 ) toDoList = ["삼겹살", "노래방", "방탈출카페", "당구장"]
             var plac= toDoList[i];
@@ -68,12 +69,11 @@ async function wswm2(cen){
                         console.log(resolvedData[0]);
                         console.log(resolvedData[0].x);
 
-                        newCenter.push(Number(resolvedData[0].y));
                         newCenter.push(Number(resolvedData[0].x));
+                        newCenter.push(Number(resolvedData[0].y));
                     });
             }
         }
             return wswm2(newCenter); // 이 방식을 재귀적으로 구현. 최종적으로 모든 list가 포함된 center값이 return 된다.
         }
-    }
 }
