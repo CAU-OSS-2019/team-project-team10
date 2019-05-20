@@ -8,9 +8,10 @@ function wswm(){
     console.log(result);
     var center = findCenter(); // 사용자들의 중간 위치 반환.
     //var center = [37.509218, 126.963359]; //test 를 위한 임시 center
-    var a = wswm2(center);
-    console.log(a);
-    return a;
+    var a = wswm2(center).then(newCenter =>{
+        console.log(newCenter);
+        console.log(resultPlace);
+    });
 }
 
 async function wswm2(cen){
@@ -18,6 +19,7 @@ async function wswm2(cen){
     meet=false;
     searched=[];
     result=[];
+    resultPlace=[];
     console.log(cen);
     
     var coordinate = cen[0] + "," + cen[1];
@@ -26,8 +28,9 @@ async function wswm2(cen){
             var plac= toDoList[i];
             await searchPlace(plac, coordinate, 1500).then(function (resolvedData){
                 result.push(resolvedData.length);
+                resultPlace.push(resolvedData);
             })
-
+            console.log(resultPlace);
             console.log(result);
                 if(result[i] == 0) {
                     //subMeet = false; // 즉 하고싶은 리스트 중 검색 안되는것이 있다면 그 장소에서는 만나면 안됨. 잠시 주석처리!
@@ -51,9 +54,11 @@ async function wswm2(cen){
                 meet=true;
                 for(var i = 0; i < toDoList.length; i++){
                     result=[];
+                    resultPlace=[];
                     console.log(result);
                     await searchPlace(toDoList[i], coordinate,10000).then(function (resolvedData){
                         result.push(resolvedData.length);
+                        resultPlace.push(resolvedData);
                     }) // center를 기준으로 점점 넓은 범위 탐색. meet이 true가 될 때 까지
                     console.log(result);
                     if(result[i] == 0){
