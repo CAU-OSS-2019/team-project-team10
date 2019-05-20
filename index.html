@@ -134,7 +134,7 @@
         <script>
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                 mapOption = {
-                    center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
                     level: 3 // 지도의 확대 레벨 
                 }
             var map = new daum.maps.Map(mapContainer, mapOption);
@@ -166,7 +166,7 @@
                 var placeQuery = this.value;
                 // bracket 없는 comma concatenated string으로 전달
                 var center = map.getCenter();
-                var coordinate = center.getLat() + "," + center.getLng();
+                var coordinate = center.ib + "," + center.jb;
                 console.log(coordinate);
                 listPlace(idx, placeQuery, coordinate, 500);
             })
