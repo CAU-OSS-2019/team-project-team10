@@ -71,8 +71,8 @@ async function wswm2(cen){
                         console.log(resolvedData[0]);
                         console.log(resolvedData[0].x);
 
-                        newCenter.push(Number(resolvedData[0].y));
                         newCenter.push(Number(resolvedData[0].x));
+                        newCenter.push(Number(resolvedData[0].y));
                     });
             }
         }
