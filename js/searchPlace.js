@@ -1,4 +1,3 @@
-var imageIndex = 0;
 var searchedPlaces = [];
 var addedPlace = [];
 
@@ -17,8 +16,10 @@ function searchPlace(_keyword, _coordinate, _radius) {
                     console.log(metaData);
                     console.log(placesData);
                     resolve(placesData);
-
 <<<<<<< HEAD
+          
+=======
+
                     for (var i = 0; i < placesData.length; i++) {
                         var posit = new daum.maps.LatLng(placesData[i].y, placesData[i].x);
                         var htmlAddresses = [];
@@ -61,11 +62,9 @@ function searchPlace(_keyword, _coordinate, _radius) {
 
                         makeMarker(posit, contentString, imageIndex);
                     }
-=======
-                    
->>>>>>> JH5
                     if (imageIndex < 5) imageIndex++;
                     else imageIndex = 0;
+>>>>>>> 34f4714... Conflict resolved again
                 }).catch(err => {
                     console.error(err);
                     reject("Error fetching.")
