@@ -17,6 +17,53 @@ function searchPlace(_keyword, _coordinate, _radius) {
                     console.log(placesData);
                     resolve(placesData);
 
+<<<<<<< HEAD
+=======
+                    for (var i = 0; i < placesData.length; i++) {
+                        var posit = new daum.maps.LatLng(placesData[i].y, placesData[i].x);
+                        var htmlAddresses = [];
+                        var contentString2 = [
+                            '<div class="iw_inner">',
+                            '<h3>' + placesData[i].place_name + '</h3>',
+                            '<p>' + placesData[i].address_name + ' | ' + placesData[i].road_address_name + '<br />',
+                            placesData[i].phone + '<br />' + '</p>',
+                            '</div>'
+                        ].join('');
+
+                        if (placesData[i].road_address_name) {
+                            htmlAddresses.push('[도로명 주소] ' + placesData[i].road_address_name);
+                        }
+
+                        if (placesData[i].address_name) {
+                            htmlAddresses.push('[지번 주소] ' + placesData[i].address_name);
+                        }
+
+                        if (placesData[i].phone) {
+                            htmlAddresses.push('[전화번호] ' + placesData[i].phone);
+                        }
+
+                        if (placesData[i].place_name.length > 15) {
+                            var contentString = [ // 정보창 내용 set
+                                '<div style="padding:10px;min-width:450px;line-height:150%;">',
+                                '<h4 style="margin-top:5px;">' + placesData[i].place_name + '</h4><br />',
+                                htmlAddresses.join('<br />'),
+                                '</div>'
+                            ].join('\n');
+                        }
+                        else {
+                            var contentString = [ // 정보창 내용 set
+                                '<div style="padding:10px;min-width:330px;line-height:150%;">',
+                                '<h4 style="margin-top:5px;">' + placesData[i].place_name + '</h4><br />',
+                                htmlAddresses.join('<br />'),
+                                '</div>'
+                            ].join('\n');
+                        }
+
+                        makeMarker(posit, contentString, imageIndex);
+                    }
+                    if (imageIndex < 5) imageIndex++;
+                    else imageIndex = 0;
+>>>>>>> 34f47142228fde8c5b49a3541e8c0b4209dab5a4
                 }).catch(err => {
                     console.error(err);
                     reject("Error fetching.")
