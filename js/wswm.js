@@ -7,8 +7,10 @@ var newCenter=[];
 function wswm(){
     console.log(result);
     var center = findCenter(); // 사용자들의 중간 위치 반환.
-    var a = wswm2(center);
-    return a;
+    var a = wswm2(center).then(newCenter =>{
+        console.log(newCenter);
+        console.log(resultPlace);
+    });
 }
 
 async function wswm2(cen){
