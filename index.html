@@ -155,29 +155,30 @@
     $(document).ready(function () {
         btnController();
     });
-    // 검색창 keyup eventListener. 자동완성 때 사용.
-    document.getElementById('searchWindow').addEventListener('keyup', function (event) {
-        console.log("key up event : " + event);
-    });
     // 검색창 change eventListener. 검색결과 사용.
-    document.getElementById('searchWindow').addEventListener('change', function (event) {
-        var idx = document.getElementById('searchedPlace').children.length;
-        var placeQuery = this.value;
-        // bracket 없는 comma concatenated string으로 전달
-        var center = map.getCenter();
-        var coordinate = center.ib + "," + center.jb;
-        console.log(coordinate);
-        listPlace(idx, placeQuery, coordinate, 500);
-    })
+    document.getElementById('searchWindow').addEventListener('keypress', function (event) {
+        if ( event.key === 'Enter' ){
+            var idx = document.getElementById('searchedPlace').children.length;
+            var placeQuery = this.value;
+            // bracket 없는 comma concatenated string으로 전달
+            var center = map.getCenter();
+            var coordinate = center.ib + "," + center.jb;
+            console.log(coordinate);
+            listPlace(idx, placeQuery, coordinate, 500);
+        }
+    });
 
     //할일 목록 작성하기.
-    document.getElementById('whatToDo').addEventListener('change', function (event) {
-        var toDo = document.getElementById('whatToDo').value;
-        toDoList.push(toDo);
-        let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
-        $('#toDoList').append(text);
-        console.log(toDoList);
-    })
+    document.getElementById('whatToDo').addEventListener('keypress', function (event) {
+        if ( event.key === 'Enter' ){
+            var toDo = document.getElementById('whatToDo').value;
+            toDoList.push(toDo);
+            let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+            $('#toDoList').append(text);
+            console.log(toDoList);
+        }
+    });
+
     document.getElementById('buttonAND').addEventListener('click', function (event) {
         if (toDoList.length > toDoAndOrList.length) {
             toDoAndOrList.push(0);
@@ -185,7 +186,8 @@
             $('#andOrList').append(text);
             console.log(toDoAndOrList + " add AND");
         }
-    })
+    });
+
     document.getElementById('buttonOR').addEventListener('click', function (event) {
         if (toDoList.length > toDoAndOrList.length) {
             toDoAndOrList.push(1);
@@ -193,7 +195,7 @@
             $('#andOrList').append(text);
             console.log(toDoAndOrList + " add OR");
         }
-    })
+    });
 </script>
 
 </body>
