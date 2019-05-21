@@ -13,7 +13,13 @@ function resetBtn() {
     return res;
 }
 
-function addBtn() {
-    var addb = `<button type="button" class='addBtn' style="height:auto;width:auto">새 위치 추가</button>`;
+
+function toDoResetBtn(){
+    var tdres =`<button type="button" class='tdResBtn' style="height:auto;width:auto">초기화</button>`;
+    return tdres;
+}
+
+function addBtn(){
+    var addb =`<button type="button" class='addBtn' style="height:auto;width:auto">새 위치 추가</button>`;
     return addb;
 }

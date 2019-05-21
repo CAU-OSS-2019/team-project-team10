@@ -71,43 +71,40 @@
             <div class="sidebar-sticky">
                 <input aria-label="Search" id="whatToDo" placeholder="             What you want to do?" size="32"
                        type="text">
-                <h6
-                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>ToDoList</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
+                    <a id ="toDoAndOr" class="d-flex align-items-center text-muted" >
                         <span data-feather="plus-circle"></span>
                         <input id="buttonAND" type="button" value="AND">
                         <input id="buttonOR" type="button" value="OR">
 
                     </a>
                 </h6>
-                <h6
-                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
 
                     <ul class="nav flex-column mb-2" id="toDoList"></ul>
                     <ul class="nav flex-column mb-2" id="andOrList"></ul>
-                    <!--list to append and, or text-->
+                <!--list to append and, or text-->
                 </h6>
 
                 </ul>
-                <h6
-                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>SEARCHED_PLACES</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
+                    <a id="searchedPlaceList" class="d-flex align-items-center text-muted" href="#">
                         <span data-feather="plus-circle"></span>
                     </a>
                 </h6>
-                <ul class="nav flex-column mb-2" id="searchedPlace">
+                    <ul id="searchedPlace" class="nav flex-column mb-2">
 
-                </ul>
+                    </ul>
                 <h6
-                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>ADDED_PLACES</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
+                    <a id="addedPlaceList" class="d-flex align-items-center text-muted" >
                         <span data-feather="plus-circle"></span>
                     </a>
                 </h6>
-                <ul class="nav flex-column mb-2" id="addedPlace">
+                <ul id="addedPlace" class="nav flex-column mb-2">
 
                 </ul>
                 <ul id="addcontainer">
@@ -116,32 +113,33 @@
                 <ul id="resetcontainer">
 
                 </ul>
-                <input onclick="wswm()" type="button" value="중간위치 찾기">
-                <input onclick="showLane(startList)" type="button" value="Find lane">
+                <input type="button" value="중간위치 찾기" onclick="wswm()">
+                <input type="button" value="Find lane" onclick="showLane(startList)">
             </div>
         </nav>
 
-        <main class="col-md-10 ml-sm-auto col-lg-10 px-4" role="main">
+        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
             <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
 
             <div id="map" style="width:100%;height:900px;"></div>
-            <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas>
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         </main>
     </div>
 </div>
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
-            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
-        };
+        }
     var map = new daum.maps.Map(mapContainer, mapOption);
     var markerList = [];
     var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
     var startList = [];
     var infoList = [];
+    var searchedInfoList = [];
     var nameList = [];
     var startPosition_x = [];
     var startPosition_y = [];
@@ -151,54 +149,53 @@
     var toDoAndOrList = [];
 
     $('#addcontainer').append(addBtn());
-    $('#resetcontainer').append(resetBtn());
+    $('#searchedPlaceList').append(resetBtn());
+    $('#toDoAndOr').append(toDoResetBtn());
 
     $(document).ready(function () {
         btnController();
     });
-
-    // 검색창 change eventListener. 검색결과 사용.
-    document.getElementById('searchWindow').addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
-            var idx = document.getElementById('searchedPlace').children.length;
-            var placeQuery = this.value;
-            // bracket 없는 comma concatenated string으로 전달
-            var center = map.getCenter();
-            var coordinate = center.getLat() + "," + center.getLng();
-            console.log(coordinate);
-            listPlace(idx, placeQuery, coordinate, 500);
-        }
+    // 검색창 keyup eventListener. 자동완성 때 사용.
+    document.getElementById('searchWindow').addEventListener('keyup', function (event) {
+        console.log("key up event : " + event);
     });
+    // 검색창 change eventListener. 검색결과 사용.
+    document.getElementById('searchWindow').addEventListener('change', function (event) {
+        var idx = document.getElementById('searchedPlace').children.length;
+        var placeQuery = this.value;
+        // bracket 없는 comma concatenated string으로 전달
+        var center = map.getCenter();
+        var coordinate = center.ib + "," + center.jb;
+        console.log(coordinate);
+        listPlace(idx, placeQuery, coordinate, 500);
+    })
 
     //할일 목록 작성하기.
-    document.getElementById('whatToDo').addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
-            var toDo = document.getElementById('whatToDo').value;
-            toDoList.push(toDo);
-            let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
-            $('#toDoList').append(text);
-            console.log(toDoList);
-        }
-    });
-
+    document.getElementById('whatToDo').addEventListener('change', function (event) {
+        var toDo = document.getElementById('whatToDo').value;
+        toDoList.push(toDo);
+        let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+        $('#toDoList').append(text);
+        console.log(toDoList);
+    })
     document.getElementById('buttonAND').addEventListener('click', function (event) {
         if (toDoList.length > toDoAndOrList.length) {
             toDoAndOrList.push(0);
-            let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${"AND"}</a></li>`;
+            let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${"AND"}</a></li>`;
             $('#andOrList').append(text);
             console.log(toDoAndOrList + " add AND");
         }
-    });
-
+    })
     document.getElementById('buttonOR').addEventListener('click', function (event) {
         if (toDoList.length > toDoAndOrList.length) {
             toDoAndOrList.push(1);
-            let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${"OR"}</a></li>`;
+            let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${"OR"}</a></li>`;
             $('#andOrList').append(text);
             console.log(toDoAndOrList + " add OR");
         }
     })
 </script>
+
 </body>
 
 </html>
