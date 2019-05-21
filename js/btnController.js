@@ -13,7 +13,7 @@ function btnController() {
         infoList[i].close(); // 맵에 있는 정보창 지움
         infoList.splice(i, 1);
         startList.splice(i, 1); // 마커를 배열에서 삭제
-        nameList.splice(i,1);
+        nameList.splice(i, 1);
         cle.remove(); // 왼쪽 ADDED_PLACE 에서 삭제
     });
 
@@ -24,8 +24,8 @@ function btnController() {
         cle.text(input);
         cle.append(' ' + changeBtn() + ' ' + delBtn());
         console.log(startList);
-        $('.'+nameList[i]).text(input);
-        nameList[i].replace(nameList[i],input);
+        $('.' + nameList[i]).text(input);
+        nameList[i].replace(nameList[i], input);
         $(document).ready(function () { // 동적으로 생성된 버튼에 이벤트 추가
             btnController();
         });

@@ -1,4 +1,3 @@
-
 function andOrApplied() {
     //의미 없는 AND, OR 제거
     if (toDoAndOrList.length == toDoList.length)
@@ -13,25 +12,25 @@ function andOrApplied() {
     if (toDoList.length == 1) { //toDo가 하나만 있을 때
         _subMeet = searched[0];
     } else {
-        for (var i=0; i<toDoAndOrList.length; i++) {    //AND들을 기준으로 그룹을 나눔 - 그 그룹 내에는 OR만 존재, 모두 false 여야 false
+        for (var i = 0; i < toDoAndOrList.length; i++) {    //AND들을 기준으로 그룹을 나눔 - 그 그룹 내에는 OR만 존재, 모두 false 여야 false
             if (toDoAndOrList[i] == 0)
                 andIndex.push(i);
         }
 
-        for (var i=0; i<andIndex.length; i++) { 
-            if (andIndex[i]==0) {   //첫번째 그룹
+        for (var i = 0; i < andIndex.length; i++) {
+            if (andIndex[i] == 0) {   //첫번째 그룹
                 andGroup[0] = searched[0];
-            } else  {   //중간 그룹들
-                for (var j = andIndex[i-1]+1; j <= andIndex[i]; j++) {
+            } else {   //중간 그룹들
+                for (var j = andIndex[i - 1] + 1; j <= andIndex[i]; j++) {
                     if (searched[j] == true)
                         boolTemp = true;
                 }
                 andGroup[i] = boolTemp;
                 boolTemp = false;
-            }               
+            }
         }
 
-        for (var i = andIndex[andIndex.length-1]+1; i < searched.length; i++) { //마지막 그룹
+        for (var i = andIndex[andIndex.length - 1] + 1; i < searched.length; i++) { //마지막 그룹
             if (searched[i] == true)
                 boolTemp = true;
         }

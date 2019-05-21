@@ -2,17 +2,17 @@ function newAddedList(name) { // ADDED_PLACE에 추가
     let text = `<li class='nav-item'>
     <a class='nav-link'>${name} ${changeBtn()} ${delBtn()} </a></li>`;
     $('#addedPlace').append(text);
-    $(document).ready(function(){ // 동적으로 생성된 버튼에 이벤트 추가
+    $(document).ready(function () { // 동적으로 생성된 버튼에 이벤트 추가
         btnController();
     });
-} 
+}
 
-function newPoint(name,address){
+function newPoint(name, address) {
     var geocoder = new daum.maps.services.Geocoder();
 
-    geocoder.addressSearch(address, function(result, status) {
+    geocoder.addressSearch(address, function (result, status) {
 
-         if (status === daum.maps.services.Status.OK) {
+        if (status === daum.maps.services.Status.OK) {
             var point = new daum.maps.LatLng(result[0].y, result[0].x);
 
             var marker = new daum.maps.Marker({
@@ -20,17 +20,17 @@ function newPoint(name,address){
                 position: point,
                 title: name
             });
-    
+
             var infowindow = new daum.maps.InfoWindow({
-                removable : true
+                removable: true
             });
-            
+
             var htmlAddresses = [];
 
             if (result[0].road_address) {
                 htmlAddresses.push('[도로명 주소] ' + result[0].road_address.address_name);
             }
-    
+
             if (result[0].address) {
                 htmlAddresses.push('[지번 주소] ' + result[0].address.address_name);
             }
@@ -38,20 +38,20 @@ function newPoint(name,address){
 
             infowindow.setContent([ // 정보창 내용 set
                 '<div style="padding:10px;min-width:300px;line-height:150%;">',
-                '<h4 class='+name+' style="margin-top:5px;">'+ name +'</h4><br />',
+                '<h4 class=' + name + ' style="margin-top:5px;">' + name + '</h4><br />',
                 htmlAddresses.join('<br />'),
                 '</div>'
             ].join('\n'));
 
             console.log(infowindow.getContent());
-            daum.maps.event.addListener(marker, "click", function(e) { 
+            daum.maps.event.addListener(marker, "click", function (e) {
                 if (infowindow.getMap()) {
                     infowindow.close();
                 } else {
                     infowindow.open(map, marker);
                 }
             });
-        
+
             infowindow.open(map, marker);
             startList.push(marker);
             infoList.push(infowindow); // 배열에 추가
@@ -60,11 +60,10 @@ function newPoint(name,address){
             map.setCenter(point);
             startPosition_x.push(result[0].x);
             startPosition_y.push(result[0].y);
-        } 
-        else{
+        } else {
             return alert('잘못된 주소 입니다.');
         }
-    });    
+    });
 
 }
 
