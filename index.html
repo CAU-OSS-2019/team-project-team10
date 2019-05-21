@@ -74,7 +74,7 @@
                     <h6
                         class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>ToDoList</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
+                        <a id ="toDoAndOr" class="d-flex align-items-center text-muted" >
                             <span data-feather="plus-circle"></span>
                             <input id="buttonAND" type="button" value="AND">
                             <input id="buttonOR" type="button" value="OR">
@@ -93,7 +93,7 @@
                     <h6
                         class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>SEARCHED_PLACES</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
+                        <a id="searchedPlaceList" class="d-flex align-items-center text-muted" href="#">
                             <span data-feather="plus-circle"></span>
                         </a>
                     </h6>
@@ -103,7 +103,7 @@
                     <h6
                         class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>ADDED_PLACES</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
+                        <a id="addedPlaceList" class="d-flex align-items-center text-muted" >
                             <span data-feather="plus-circle"></span>
                         </a>
                     </h6>
@@ -134,7 +134,7 @@
         <script>
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                 mapOption = {
-                    center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
                     level: 3 // 지도의 확대 레벨 
                 }
             var map = new daum.maps.Map(mapContainer, mapOption);
@@ -142,6 +142,7 @@
             var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
             var startList = [];
             var infoList = [];
+            var searchedInfoList = [];
             var nameList = [];
             var startPosition_x = [];
             var startPosition_y = [];
@@ -151,7 +152,8 @@
             var toDoAndOrList = [];
 
             $('#addcontainer').append(addBtn());
-            $('#resetcontainer').append(resetBtn());
+            $('#searchedPlaceList').append(resetBtn());
+            $('#toDoAndOr').append(toDoResetBtn());
 
             $(document).ready(function () {
                 btnController();
@@ -166,7 +168,7 @@
                 var placeQuery = this.value;
                 // bracket 없는 comma concatenated string으로 전달
                 var center = map.getCenter();
-                var coordinate = center.getLat() + "," + center.getLng();
+                var coordinate = center.ib + "," + center.jb;
                 console.log(coordinate);
                 listPlace(idx, placeQuery, coordinate, 500);
             })
@@ -175,14 +177,14 @@
             document.getElementById('whatToDo').addEventListener('change', function (event) {
                 var toDo = document.getElementById('whatToDo').value;
                 toDoList.push(toDo);
-                let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+                let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
                 $('#toDoList').append(text);
                 console.log(toDoList);
             })
             document.getElementById('buttonAND').addEventListener('click', function (event) {
                 if (toDoList.length > toDoAndOrList.length) {
                     toDoAndOrList.push(0);
-                    let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${"AND"}</a></li>`;
+                    let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${"AND"}</a></li>`;
                     $('#andOrList').append(text);
                     console.log(toDoAndOrList + " add AND");
                 }
@@ -190,7 +192,7 @@
             document.getElementById('buttonOR').addEventListener('click', function (event) {
                 if (toDoList.length > toDoAndOrList.length) {
                     toDoAndOrList.push(1);
-                    let text = `<li class='nav-item'><a class='nav-link'><span data-feather='file-text'></span>${"OR"}</a></li>`;
+                    let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${"OR"}</a></li>`;
                     $('#andOrList').append(text);
                     console.log(toDoAndOrList + " add OR");
                 }

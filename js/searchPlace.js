@@ -18,20 +18,50 @@ function searchPlace(_keyword, _coordinate, _radius) {
                     console.log(placesData);
                     resolve(placesData);
 
-                    for(var i=0; i<placesData.length; i++) {
-                        var posit = new naver.maps.LatLng(placesData[i].y, placesData[i].x);
-                        var contentString = [
+                    for (var i = 0; i < placesData.length; i++) {
+                        var posit = new daum.maps.LatLng(placesData[i].y, placesData[i].x);
+                        var htmlAddresses = [];
+                        var contentString2 = [
                             '<div class="iw_inner">',
-                            '<h3>'+ placesData[i].place_name +'</h3>',
-                            '<p>' + placesData[i].address_name + ' | '+ placesData[i].road_address_name +'<br />',
+                            '<h3>' + placesData[i].place_name + '</h3>',
+                            '<p>' + placesData[i].address_name + ' | ' + placesData[i].road_address_name + '<br />',
                             placesData[i].phone + '<br />' + '</p>',
                             '</div>'
                         ].join('');
 
+                        if (placesData[i].road_address_name) {
+                            htmlAddresses.push('[도로명 주소] ' + placesData[i].road_address_name);
+                        }
+
+                        if (placesData[i].address_name) {
+                            htmlAddresses.push('[지번 주소] ' + placesData[i].address_name);
+                        }
+
+                        if (placesData[i].phone) {
+                            htmlAddresses.push('[전화번호] ' + placesData[i].phone);
+                        }
+
+                        if (placesData[i].place_name.length > 15) {
+                            var contentString = [ // 정보창 내용 set
+                                '<div style="padding:10px;min-width:450px;line-height:150%;">',
+                                '<h4 style="margin-top:5px;">' + placesData[i].place_name + '</h4><br />',
+                                htmlAddresses.join('<br />'),
+                                '</div>'
+                            ].join('\n');
+                        }
+                        else {
+                            var contentString = [ // 정보창 내용 set
+                                '<div style="padding:10px;min-width:330px;line-height:150%;">',
+                                '<h4 style="margin-top:5px;">' + placesData[i].place_name + '</h4><br />',
+                                htmlAddresses.join('<br />'),
+                                '</div>'
+                            ].join('\n');
+                        }
+
                         makeMarker(posit, contentString, imageIndex);
                     }
                     if (imageIndex < 5) imageIndex++;
-                    else imageIndex=0;
+                    else imageIndex = 0;
                 }).catch(err => {
                     console.error(err);
                     reject("Error fetching.")
@@ -47,7 +77,7 @@ function listPlace(_idx, _keyword, _coordinate, _radius) {
         console.log(resolvedData);
         searchedPlaces = resolvedData;
         for (let i = 0; i < resolvedData.length; i++) {
-            let text = `<li class='nav-item'><a class='nav-link' onclick="appendPlace(${i})"><span data-feather='file-text'></span>${searchedPlaces[i].place_name}</a></li>`;
+            let text = `<li class='nav-item'><a class='nav-link' ><span data-feather='file-text'></span>${searchedPlaces[i].place_name}</a></li>`;
             $('#searchedPlace').append(text);
         }
     }).catch(function (err) {
