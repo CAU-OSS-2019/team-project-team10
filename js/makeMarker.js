@@ -25,7 +25,9 @@ function makeMarker(posit, contentString, imageIndex){
         }
     });
     
+    searchedInfoList.push(infowindow);
     markerList.push(marker);
+    console.log(markerList.length);
 }
 
 

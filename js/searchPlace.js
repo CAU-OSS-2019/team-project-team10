@@ -77,7 +77,7 @@ function listPlace(_idx, _keyword, _coordinate, _radius) {
         console.log(resolvedData);
         searchedPlaces = resolvedData;
         for (let i = 0; i < resolvedData.length; i++) {
-            let text = `<li class='nav-item'><a class='nav-link' onclick="appendPlace(${i})"><span data-feather='file-text'></span>${searchedPlaces[i].place_name}</a></li>`;
+            let text = `<li class='nav-item'><a class='nav-link' ><span data-feather='file-text'></span>${searchedPlaces[i].place_name}</a></li>`;
             $('#searchedPlace').append(text);
         }
     }).catch(function (err) {
