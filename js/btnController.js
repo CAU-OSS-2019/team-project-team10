@@ -40,7 +40,7 @@ function btnController() {
 
         for (var j = 0;j<markerList.length;j++){
             markerList[j].setMap(null);
-            searchedInfoList[j].close();
+            resultInfoList[j].close();
         }
 
         $('.nav-item').remove(); // ADDED_PLACE 항목 다 지움
@@ -57,6 +57,7 @@ function btnController() {
     $('.tdResBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
         toDoList = [];
         toDoAndOrList = [];
+        resultInfoList = [];
         $('.nav-itemToDo').remove();
     });
 
