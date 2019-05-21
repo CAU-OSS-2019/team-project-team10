@@ -17,8 +17,6 @@ function searchPlace(_keyword, _coordinate, _radius) {
                     console.log(placesData);
                     resolve(placesData);
 
-<<<<<<< HEAD
-=======
                     for (var i = 0; i < placesData.length; i++) {
                         var posit = new daum.maps.LatLng(placesData[i].y, placesData[i].x);
                         var htmlAddresses = [];
@@ -63,7 +61,7 @@ function searchPlace(_keyword, _coordinate, _radius) {
                     }
                     if (imageIndex < 5) imageIndex++;
                     else imageIndex = 0;
->>>>>>> 34f47142228fde8c5b49a3541e8c0b4209dab5a4
+
                 }).catch(err => {
                     console.error(err);
                     reject("Error fetching.")
