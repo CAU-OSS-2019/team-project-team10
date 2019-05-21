@@ -11,7 +11,7 @@ function makeMarker(posit, contentString, imageIndex){
         map: map,
         image: markerImage
     });
-                    
+
     var infowindow = new daum.maps.InfoWindow({
         content: contentString,
         removable: true
