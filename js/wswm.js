@@ -14,6 +14,9 @@ function wswm(){
 async function wswm2(cen){
     subMeet=true;
     meet=false;
+    searched=[];
+    result=[];
+    resultPlace=[];
     console.log(cen);
     
     var coordinate = cen[0] + "," + cen[1];
@@ -49,6 +52,7 @@ async function wswm2(cen){
                 meet=true;
                 for(var i = 0; i < toDoList.length; i++){
                     result=[];
+                    resultPlace=[];
                     console.log(result);
                     await searchPlace(toDoList[i], coordinate,10000).then(function (resolvedData){
                         result.push(resolvedData.length);
