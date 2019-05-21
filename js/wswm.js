@@ -11,6 +11,7 @@ function wswm(){
     var a = wswm2(center).then(newCenter =>{
         console.log(newCenter);
         console.log(resultPlace);
+        makeMarker(resultPlace);
     });
 }
 

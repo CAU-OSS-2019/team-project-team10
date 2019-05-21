@@ -35,7 +35,6 @@ function newPoint(name,address){
                 htmlAddresses.push('[지번 주소] ' + result[0].address.address_name);
             }
 
-
             infowindow.setContent([ // 정보창 내용 set
                 '<div style="padding:10px;min-width:300px;line-height:150%;">',
                 '<h4 class='+name+' style="margin-top:5px;">'+ name +'</h4><br />',
