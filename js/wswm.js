@@ -29,6 +29,7 @@ async function wswm2(cen){
             var plac= toDoList[i];
             await searchPlace(plac, coordinate, 1500).then(function (resolvedData){
                 result.push(resolvedData.length);
+                resultPlace.push(resolvedData);
             })
 
             console.log(result);
@@ -58,6 +59,7 @@ async function wswm2(cen){
                     console.log(result);
                     await searchPlace(toDoList[i], coordinate,10000).then(function (resolvedData){
                         result.push(resolvedData.length);
+                        resultPlace.push(resolvedData);
                     }) // center를 기준으로 점점 넓은 범위 탐색. meet이 true가 될 때 까지
                     console.log(result);
                     if(result[i] == 0){
