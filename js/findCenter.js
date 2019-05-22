@@ -6,8 +6,8 @@ function findCenter() {
 
     // 출발지 vertext들의 좌표를 모음
     for (var i = 0; i < startPosition_x.length; i++) {
-        x_position[i] = startPosition_x[i];
-        y_position[i] = startPosition_y[i];
+        x_position[i] = Number(startPosition_x[i]);
+        y_position[i] = Number(startPosition_y[i]);
     }
 
     // 다각형의 무게중심을 구함

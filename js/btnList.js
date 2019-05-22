@@ -1,16 +1,22 @@
-function delBtn(){
-    var del=`<button type="button" class='delBtn' style="height:auto;width:auto">삭제</button>`;
+function delBtn() {
+    var del = `<button type="button" class='delBtn' style="height:auto;width:auto">삭제</button>`;
     return del;
 }
 
-function changeBtn(){
-    var chan=`<button type="button" class='chnBtn' style="height:auto;width:auto">이름변경</button>`;
+function changeBtn() {
+    var chan = `<button type="button" class='chnBtn' style="height:auto;width:auto">이름변경</button>`;
     return chan;
 }
 
-function resetBtn(){
-    var res =`<button type="button" class='resBtn' style="height:auto;width:auto">초기화</button>`;
+function resetBtn() {
+    var res = `<button type="button" class='resBtn' style="height:auto;width:auto">초기화</button>`;
     return res;
+}
+
+
+function toDoResetBtn(){
+    var tdres =`<button type="button" class='tdResBtn' style="height:auto;width:auto">초기화</button>`;
+    return tdres;
 }
 
 function addBtn(){
