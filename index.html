@@ -114,7 +114,7 @@
 
                 </ul>
                 <input type="button" value="중간위치 찾기" onclick="wswm()">
-                <input type="button" value="Find lane" onclick="showLane(newCenter)">
+                <input type="button" value="Find lane" onclick="showLane(resultMiddlePoint)">
             </div>
         </nav>
 
@@ -146,9 +146,11 @@
     var startPosition_x = [];
     var startPosition_y = [];
     var result = [];
+    var resultMiddlePoint = [];
 
     var toDoList = []; // test를 위한 임시 toDoList
     var toDoAndOrList = [];
+
 
     $('#addcontainer').append(addBtn());
     $('#searchedPlaceList').append(resetBtn());

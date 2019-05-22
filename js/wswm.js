@@ -10,9 +10,11 @@ function wswm() {
     //var center = [37.509218, 126.963359]; //test 를 위한 임시 center
     var a = wswm2(center).then(newCenter =>{
         console.log(newCenter);
+        resultMiddlePoint = newCenter;
         console.log(resultPlace);
         makeMarker(resultPlace);
     });
+
 }
 
 async function wswm2(cen){
