@@ -1,12 +1,17 @@
-function showLane (tmpList, isCar) {
+function showLane (center) {
    // var sx = 126.93737555322481;
    // var sy = 37.55525165729346;
    // var ex = 126.88265238619182;
    // var ey = 37.481440035175375;
-   var startList = [{'position' : {'x' : 126.961314, 'y': 37.4763176}}, {'position' : {'x' : 126.927075, 'y': 37.487426}}, {'position' : {'x': 126.990487, 'y': 37.532527}}];
+   
+   for(var i=0;i<startPosition_x.length;i++){
+    var startList = [{'position':{'x':startPosition_x[i]}},{'position':{'y':startPosition_y[i]}}]
+   }
+
+
    // console.log(startList);
    // console.log("test button cliced");
-   var middlePoint = startList[startList.length-1]
+   var middlePoint = [{'position':{'x':center[0]}},{'position':{'y':center[1]}}];
    // console.log(middlePoint);
    var ex = middlePoint.position.x;
    var ey = middlePoint.position.y;
