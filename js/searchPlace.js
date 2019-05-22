@@ -1,4 +1,3 @@
-var imageIndex = 0;
 var searchedPlaces = [];
 var addedPlace = [];
 
@@ -62,6 +61,7 @@ function searchPlace(_keyword, _coordinate, _radius) {
                     }
                     if (imageIndex < 5) imageIndex++;
                     else imageIndex = 0;
+
                 }).catch(err => {
                     console.error(err);
                     reject("Error fetching.")
