@@ -12,7 +12,7 @@ function showLane (){
    // console.log(startList);
    // console.log("test button cliced");
    var middlePoint = [{'position':{'x':resultMiddlePoint[0]}},{'position':{'y':resultMiddlePoint[1]}}];
-   // console.log(middlePoint);
+    console.log(middlePoint);
    var ex = middlePoint.position.x;
    var ey = middlePoint.position.y;
 
