@@ -1,31 +1,28 @@
-function showLane (center) {
+function showLane (){
    // var sx = 126.93737555322481;
    // var sy = 37.55525165729346;
    // var ex = 126.88265238619182;
    // var ey = 37.481440035175375;
    
    for(var i=0;i<startPosition_x.length;i++){
-    var startList = [{'position':{'x':startPosition_x[i]}},{'position':{'y':startPosition_y[i]}}]
+    var startPoints = [{'position':{'x':startPosition_x[i]}},{'position':{'y':startPosition_y[i]}}]
    }
 
 
    // console.log(startList);
    // console.log("test button cliced");
-   var middlePoint = [{'position':{'x':center[0]}},{'position':{'y':center[1]}}];
+   var middlePoint = [{'position':{'x':resultMiddlePoint[0]}},{'position':{'y':resultMiddlePoint[1]}}];
    // console.log(middlePoint);
    var ex = middlePoint.position.x;
    var ey = middlePoint.position.y;
 
-  if(isCar) {
-    console.log("Car!!");
-  } else {
 
     var promises = [];
      
-    for(var i=0; i<(startList.length-1);i++){
+    for(var i=0; i<(startPoints.length-1);i++){
         // console.log(i + startList[i].position);
-      var sx = startList[i].position.x;
-      var sy = startList[i].position.y;
+      var sx = startPoints[i].position.x;
+      var sy = startPoints[i].position.y;
 
        promises.push(new Promise(function(resolve, reject) {
          fetch(`http://165.194.35.214:26756/lane/?sx=${sx}&sy=${sy}&ex=${ex}&ey=${ey}`)
@@ -58,7 +55,7 @@ function showLane (center) {
           callMapObjApiAJAX(JSON.parse(results[i])["result"]["path"][0].info.mapObj, pathArray, startList[i], startList[startList.length-1]);
         }
     })}
-}
+
 
 function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos){
       // console.log(mapObj);
