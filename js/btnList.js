@@ -19,6 +19,11 @@ function toDoResetBtn(){
     return tdres;
 }
 
+function addResetBtn(){
+    var addres =`<button type="button" class='addResBtn' style="height:auto;width:auto">초기화</button>`;
+    return addres;
+}
+
 function addBtn(){
     var addb =`<button type="button" class='addBtn' style="height:auto;width:auto">새 위치 추가</button>`;
     return addb;

@@ -33,22 +33,12 @@ function btnController() {
     });
 
     $('.resBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
-        for (var i = 0; i < startList.length; i++) {
-            startList[i].setMap(null); // 맵의 마커 다 지움
-            infoList[i].close(); // 맵의 정보창 다 지움
-        }
-
         for (var j = 0;j<markerList.length;j++){
             markerList[j].setMap(null);
             resultInfoList[j].close();
         }
 
         $('.nav-item').remove(); // ADDED_PLACE 항목 다 지움
-        startList = []; // 배열 초기화
-        infoList = [];
-        nameList = [];
-        startPosition_x = [];
-        startPosition_y = [];
         result = [];
         markerList = [];
         resultInfoList = [];
@@ -59,6 +49,20 @@ function btnController() {
         toDoList = [];
         toDoAndOrList = [];     
         $('.nav-itemToDo').remove();
+    });
+
+    $('.addResBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
+        for (var i = 0; i < startList.length; i++) {
+            startList[i].setMap(null); // 맵의 마커 다 지움
+            infoList[i].close(); // 맵의 정보창 다 지움
+        }
+
+        $('.nav-item').remove(); // ADDED_PLACE 항목 다 지움
+        startList = []; // 배열 초기화
+        infoList = [];
+        nameList = [];
+        startPosition_x = [];
+        startPosition_y = [];                     
     });
 
 }
