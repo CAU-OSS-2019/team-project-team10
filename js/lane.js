@@ -3,23 +3,25 @@ function showLane (){
    // var sy = 37.55525165729346;
    // var ex = 126.88265238619182;
    // var ey = 37.481440035175375;
-   
+
+
+   var startPoints = []
    for(var i=0;i<startPosition_x.length;i++){
-    var startPoints = [{'position':{'x':startPosition_x[i]}},{'position':{'y':startPosition_y[i]}}]
+    startPoints.push({'position':{'x':startPosition_x[i], 'y':startPosition_y[i]}});
    }
 
 
    // console.log(startList);
    // console.log("test button cliced");
-   var middlePoint = [{'position':{'x':resultMiddlePoint[0]}},{'position':{'y':resultMiddlePoint[1]}}];
-    console.log(middlePoint);
+   var middlePoint = {'position':{'x':resultMiddlePoint[0], 'y':resultMiddlePoint[1]}};
+   console.log(middlePoint);
    var ex = middlePoint.position.x;
    var ey = middlePoint.position.y;
 
 
     var promises = [];
      
-    for(var i=0; i<(startPoints.length-1);i++){
+    for(var i=0; i<startPoints.length;i++){
         // console.log(i + startList[i].position);
       var sx = startPoints[i].position.x;
       var sy = startPoints[i].position.y;
@@ -27,7 +29,7 @@ function showLane (){
        promises.push(new Promise(function(resolve, reject) {
          fetch(`http://165.194.35.214:26756/lane/?sx=${sx}&sy=${sy}&ex=${ex}&ey=${ey}`)
          .then(function(res){
-            console.log(res);
+            // console.log(res);
             res.json().then(body => {
                 // console.log("returned data :" + body);
                 resolve(body);
@@ -51,8 +53,8 @@ function showLane (){
             }
           }
           // console.log(pathArray);
-          console.log(JSON.parse(results[i])["result"]["path"][0].info.mapObj, pathArray, startList[i], startList[startList.length-1]);
-          callMapObjApiAJAX(JSON.parse(results[i])["result"]["path"][0].info.mapObj, pathArray, startList[i], startList[startList.length-1]);
+          // console.log(JSON.parse(results[i])["result"]["path"][0].info.mapObj, pathArray, startList[i], middlePoint);
+          callMapObjApiAJAX(JSON.parse(results[i])["result"]["path"][0].info.mapObj, pathArray, startPoints[i], middlePoint);
         }
     })}
 
@@ -95,12 +97,12 @@ function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos){
          for(var j=0 ; j <data.result.lane[i].section.length; j++){
 
             // console.log(data.result.lane[i].section[j].graphPos.length/2);
-            showPubInfo(pubInfo, data.result.lane[i].section[j].graphPos[parseInt(data.result.lane[i].section[j].graphPos.length/2)]);
+            // showPubInfo(pubInfo, data.result.lane[i].section[j].graphPos[parseInt(data.result.lane[i].section[j].graphPos.length/2)]);
             // console.log(data.result.lane[i].section[j].graphPos);
             // console.log(pubInfo);
             // console.log(pathArray);
             // console.log(startPos.position);
-            console.log(i, j);
+            // console.log(i, j);
 
             for(var k=0 ; k < data.result.lane[i].section[j].graphPos.length; k++){
                lineArray.push(new daum.maps.LatLng(data.result.lane[i].section[j].graphPos[k].y, data.result.lane[i].section[j].graphPos[k].x));
@@ -155,7 +157,7 @@ function showPubInfo(pubInfo, position) {
       // },
   });
 
-  infowindow.open(map, marker); // 정보창 열린 상태로 추가
+  // infowindow.open(map, marker); // 정보창 열린 상태로 추가
 
   daum.maps.Event.addListener(marker, "click", function(e) { 
       if (infowindow.getMap()) {
