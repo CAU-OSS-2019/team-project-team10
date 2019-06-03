@@ -67,18 +67,25 @@
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-                <input aria-label="Search" id="whatToDo" placeholder="             What you want to do?" size="32"
-                       type="text">
+                <input class="form-control form-control-lg" type="text" placeholder="What you want to do?" aria-label="Input search query">
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>ToDoList</span>
+                    <a id ="toDoAndOrText" class="d-flex align-content-md-start text-muted" >
+                        <span>To-Do List</span>
+                    </a>
                     <a id ="toDoAndOr" class="d-flex align-items-center text-muted" >
                         <span data-feather="plus-circle"></span>
-                        <input id="buttonAND" type="button" value="AND">
-                        <input id="buttonOR" type="button" value="OR">
-
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with AND/OR/RESET button groups">
+                            <div class="btn-group mr-2" role="group" aria-label="AND/OR group">
+                                <input id="buttonAND" type="button" class="btn btn-light btn-sm" value="AND">
+                                <input id="buttonOR" type="button" class="btn btn-light btn-sm" value="OR">
+                            </div>
+                            <div class="btn-group" role="group" aria-label="Reset group">
+                                <button type="button" id='tdResBtn' class='btn btn-outline-danger btn-sm'>Reset</button>
+                            </div>
+                        </div>
                     </a>
                 </h6>
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3초기화 mt-4 mb-1 text-muted">
 
                     <ul class="nav flex-column mb-2" id="toDoList"></ul>
                     <ul class="nav flex-column mb-2" id="andOrList"></ul>
@@ -87,7 +94,7 @@
 
                 </ul>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>SEARCHED_PLACES</span>
+                    <span>SEARCHED PLACES</span>
                     <a id="searchedPlaceList" class="d-flex align-items-center text-muted" href="#">
                         <span data-feather="plus-circle"></span>
                     </a>
@@ -97,10 +104,11 @@
                     </ul>
                 <h6
                     class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>ADDED_PLACES</span>
+                    <span>MEMBERS</span>
                     <a id="addedPlaceList" class="d-flex align-items-center text-muted" >
                         <span data-feather="plus-circle"></span>
                     </a>
+                    <button type="button" id='addBtn' class='btn btn-outline-primary btn-sm'>Add Member</button>
                 </h6>
                 <ul id="addedPlace" class="nav flex-column mb-2">
 
@@ -111,8 +119,10 @@
                 <ul id="resetcontainer">
 
                 </ul>
-                <input type="button" value="중간위치 찾기" onclick="wswm()">
-                <input type="button" value="길 찾기" onclick="showLane()">
+                <div class="btn-group" role="group" aria-label="Assemble, FindRoute group">
+                    <input type="button" class="btn btn-success btn-lg" value="Assemble!" onclick="wswm()">
+                    <input type="button" class="btn btn-secondary btn-lg" value="Find Route" onclick="showLane()">
+                </div>
             </div>
         </nav>
 
@@ -150,9 +160,8 @@
     var toDoAndOrList = [];
 
 
-    $('#addcontainer').append(addBtn());
+    // $('#addcontainer').append(addBtn());
     $('#searchedPlaceList').append(resetBtn());
-    $('#toDoAndOr').append(toDoResetBtn());
 
     $(document).ready(function () {
         btnController();

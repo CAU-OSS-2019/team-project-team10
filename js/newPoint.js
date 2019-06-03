@@ -1,6 +1,10 @@
-function newAddedList(name) { // ADDED_PLACE에 추가
+function newAddedList(name) { // Members에 추가
     let text = `<li class='nav-item'>
-    <a class='nav-link'>${name} ${changeBtn()} ${delBtn()} </a></li>`;
+    <a class='sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted'>${name} 
+        <div class="btn-group" role="group" aria-label="Basic example">
+        ${changeBtn()} ${delBtn()} </div>
+        </a>
+    </li>`;
     $('#addedPlace').append(text);
     $(document).ready(function () { // 동적으로 생성된 버튼에 이벤트 추가
         btnController();
