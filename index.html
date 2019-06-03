@@ -61,8 +61,6 @@
 <body>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-3" href="#">WhereShallWeMeet</a>
-    <input aria-label="Search" class="form-control form-control-dark w-100" id="searchWindow" placeholder="Search"
-           type="text">
 </nav>
 
 <div class="container-fluid">
@@ -114,7 +112,7 @@
 
                 </ul>
                 <input type="button" value="중간위치 찾기" onclick="wswm()">
-                <input type="button" value="Find lane" onclick="showLane(startList)">
+                <input type="button" value="Find lane" onclick="showLane()">
             </div>
         </nav>
 
@@ -146,9 +144,11 @@
     var startPosition_x = [];
     var startPosition_y = [];
     var result = [];
+    var resultMiddlePoint = [];
 
     var toDoList = []; // test를 위한 임시 toDoList
     var toDoAndOrList = [];
+
 
     $('#addcontainer').append(addBtn());
     $('#searchedPlaceList').append(resetBtn());
