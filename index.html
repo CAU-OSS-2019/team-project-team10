@@ -162,12 +162,17 @@
     document.getElementById('whatToDo').addEventListener('keypress', function (event) {
         let whatToDoTextbox = document.getElementById('whatToDo');
         if ( event.key === 'Enter' ){
-            var toDo = whatToDoTextbox.value;
-            toDoList.push(toDo);
-            let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
-            $('#toDoList').append(text);
-            console.log(toDoList);
-            whatToDoTextbox.value = "";
+            if(whatToDoTextbox.value !== ""){
+                var toDo = whatToDoTextbox.value;
+                toDoList.push(toDo);
+                let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+                $('#toDoList').append(text);
+                console.log(toDoList);
+                whatToDoTextbox.value = "";
+            }
+            else{
+                alert("잘못된 입력입니다.");
+            }
         }
     });
 
