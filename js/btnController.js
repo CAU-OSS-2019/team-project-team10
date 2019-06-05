@@ -24,7 +24,7 @@ function btnController() {
         var i = liTag.index();
         var aTag = liTag.find("a");
 
-        var input = prompt('이름을 입력해주세요');;
+        var input = prompt('이름을 입력해주세요');
         aTag.text(input);
         aTag.append('</a>');
         $('.' + nameList[i]).text(input);
@@ -40,7 +40,7 @@ function btnController() {
             infoList[i].close(); // 맵의 정보창 다 지움
         }
 
-        for (var j = 0;j<markerList.length;j++){
+        for (var j = 0; j < markerList.length; j++) {
             markerList[j].setMap(null);
             resultInfoList[j].close();
         }
@@ -59,7 +59,7 @@ function btnController() {
 
     $('.tdResBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
         toDoList = [];
-        toDoAndOrList = [];     
+        toDoAndOrList = [];
         $('.nav-itemToDo').remove();
     });
 

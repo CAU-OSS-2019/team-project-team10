@@ -13,12 +13,12 @@ function resetBtn() {
     return res;
 }
 
-function toDoResetBtn(){
-    var tdres =`<button type="button" class='tdResBtn btn btn-outline-danger btn-sm'>Reset</button>`;
+function toDoResetBtn() {
+    var tdres = `<button type="button" class='tdResBtn btn btn-outline-danger btn-sm'>Reset</button>`;
     return tdres;
 }
 
-function addBtn(){
-    var addb =`<button type="button" class='addBtn btn btn-outline-primary btn-sm'>Add Member</button>`;
+function addBtn() {
+    var addb = `<button type="button" class='addBtn btn btn-outline-primary btn-sm'>Add Member</button>`;
     return addb;
 }

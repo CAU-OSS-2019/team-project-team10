@@ -59,77 +59,75 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-3" href="#">WhereShallWeMeet</a>
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap align-content p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-3 align-items-center" href="#">WhereShallWeMeet</a>
 </nav>
 
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-                <input id = "whatToDo" class="form-control form-control-lg" type="text" placeholder="What you want to do?" aria-label="Input search query">
+                <!--What you want to do input form-->
+                <input aria-label="Input search query" class="form-control form-control-lg" id="whatToDo" placeholder="What you want to do?"
+                       type="text">
+
+                <!--TO-DO-LIST, AND OR RESET button group-->
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <a id ="toDoAndOrText" class="d-flex align-content-md-start" >
+                    <a class="d-flex align-content-md-start" id="toDoAndOrText">
                         <span>To-Do List</span>
                     </a>
-                    <a id ="toDoAndOr" class="d-flex align-items-center" >
-                        <span data-feather="plus-circle"></span>
-                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with AND/OR/RESET button groups">
-                            <div class="btn-group mr-2" role="group" aria-label="AND/OR group">
-                                <input id="buttonAND" type="button" class="btn btn-light btn-sm" value="AND">
-                                <input id="buttonOR" type="button" class="btn btn-light btn-sm" value="OR">
+                    <a class="d-flex align-items-center" id="toDoAndOr">
+                        <!--AND OR Reset button group.-->
+                        <div aria-label="Toolbar with AND/OR/RESET button groups" class="btn-toolbar" role="toolbar">
+                            <div aria-label="AND/OR group" class="btn-group mr-2" role="group">
+                                <input class="btn btn-light btn-sm" id="buttonAND" type="button" value="AND">
+                                <input class="btn btn-light btn-sm" id="buttonOR" type="button" value="OR">
                             </div>
-                            <div class="btn-group" role="group" aria-label="Reset group">
-                                <button type="button" class='tdResBtn btn btn-outline-danger btn-sm'>Reset</button>
+                            <div aria-label="Reset group" class="btn-group" role="group">
+                                <button class='tdResBtn btn btn-outline-danger btn-sm' type="button">Reset</button>
                             </div>
                         </div>
                     </a>
                 </h6>
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-lg-3 mt-4 mb-1 ">
 
+                <!--AND OR flag-->
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-lg-3 mt-4 mb-1 ">
                     <ul class="nav flex-column mb-2" id="toDoList"></ul>
                     <ul class="nav flex-column mb-2" id="andOrList"></ul>
-                <!--list to append and, or text-->
+                    <!--list to append and, or text-->
                 </h6>
 
-                </ul>
+                <!--Members title, Add Member button.-->
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>SEARCHED PLACES</span>
-                    <a id="searchedPlaceList" class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                    <ul id="searchedPlace" class="nav flex-column mb-2">
-
-                    </ul>
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <a id="memberListTitle" class="d-flex align-content-md-start" >
+                    <a class="d-flex align-content-md-start" id="memberListTitle">
                         <span>MEMBERS</span>
                     </a>
-                    <a id="memberList" class="d-flex align-items-center" >
+                    <a class="d-flex align-items-center" id="memberList">
                         <span data-feather="plus-circle"></span>
                     </a>
-                    <button type="button" class='addBtn btn btn-outline-primary btn-sm'>Add Member</button>
+                    <button class='addBtn btn btn-outline-primary btn-sm' type="button">Add Member</button>
                 </h6>
-                <ul id="member" class="nav flex-column mb-2">
-
+                <ul class="nav flex-column mb-2" id="member">
+                    <!--Member items listed here.-->
                 </ul>
+
+                <!--Assemble, Find Route btn group.-->
                 <div class="sidebar-heading justify-content-between align-items-center px-3 mt-lg-4 mb-1 text-center">
-                    <div class="btn-group align-items-center" role="group" aria-label="Assemble, FindRoute group">
-                        <input type="button" class="btn btn-success btn-lg" value="Assemble!" onclick="wswm()">
-                        <input type="button" class="btn btn-secondary btn-lg" value="Find Route" onclick="showLane()">
+                    <div aria-label="Assemble, FindRoute group" class="btn-group align-items-center" role="group">
+                        <input class="btn btn-success btn-lg" onclick="wswm()" type="button" value="Assemble!">
+                        <input class="btn btn-secondary btn-lg" onclick="showLane()" type="button" value="Find Route">
                     </div>
                 </div>
             </div>
         </nav>
 
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+        <main class="col-md-10 ml-sm-auto col-lg-10 px-4" role="main">
             <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
 
             <div id="map" style="width:100%;height:900px;"></div>
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas>
         </main>
     </div>
 </div>
@@ -138,7 +136,7 @@
         mapOption = {
             center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
-        }
+        };
     var map = new daum.maps.Map(mapContainer, mapOption);
     var markerList = [];
     var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
@@ -146,7 +144,6 @@
     var resultNameList = [];
     var startList = [];
     var infoList = [];
-    var searchedInfoList = [];
     var nameList = [];
     var startPosition_x = [];
     var startPosition_y = [];
@@ -156,15 +153,13 @@
     var toDoList = []; // test를 위한 임시 toDoList
     var toDoAndOrList = [];
 
-    $('#searchedPlaceList').append(resetBtn());
-
     $(document).ready(function () {
         btnController();
     });
 
     //할일 목록 작성하기.
     document.getElementById('whatToDo').addEventListener('keypress', function (event) {
-        if ( event.key === 'Enter' ){
+        if (event.key === 'Enter') {
             var toDo = document.getElementById('whatToDo').value;
             toDoList.push(toDo);
             let text = `<li class='nav-itemToDo lead'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;

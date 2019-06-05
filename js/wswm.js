@@ -8,7 +8,7 @@ function wswm() {
     console.log(result);
     var center = findCenter(); // 사용자들의 중간 위치 반환.
     //var center = [37.509218, 126.963359]; //test 를 위한 임시 center
-    var a = wswm2(center).then(newCenter =>{
+    var a = wswm2(center).then(newCenter => {
         console.log(newCenter);
         resultMiddlePoint = newCenter;
         console.log(resultPlace);
@@ -17,22 +17,22 @@ function wswm() {
 
 }
 
-async function wswm2(cen){
-    subMeet=true;
-    meet=false;
-    searched=[];
-    result=[];
-    resultPlace=[];
+async function wswm2(cen) {
+    subMeet = true;
+    meet = false;
+    searched = [];
+    result = [];
+    resultPlace = [];
     console.log(cen);
 
     var coordinate = cen[0] + "," + cen[1];
 
-    for(var i = 0; i < toDoList.length; i++){ // 할일 목록인 toDoList가 있다고 가정 예 ) toDoList = ["삼겹살", "노래방", "방탈출카페", "당구장"]
-        var plac= toDoList[i];
-        await searchPlace(plac, coordinate, 1500).then(function (resolvedData){
+    for (var i = 0; i < toDoList.length; i++) { // 할일 목록인 toDoList가 있다고 가정 예 ) toDoList = ["삼겹살", "노래방", "방탈출카페", "당구장"]
+        var plac = toDoList[i];
+        await searchPlace(plac, coordinate, 1500).then(function (resolvedData) {
             result.push(resolvedData.length);
             resultPlace.push(resolvedData);
-        })
+        });
         console.log(resultPlace);
         console.log(result);
         if (result[i] == 0) {
@@ -50,13 +50,12 @@ async function wswm2(cen){
     if (subMeet) {
         meet = true; // 결론적으로 현재 center에서 만나면 된다.
         return cen;
-    }
-    else{ //첫번 째 시도에서 구한 center에서 만날 수 없다면 center를 옮겨줘야 한다.
-        while(!meet){
-            meet=true;
-            for(var i = 0; i < toDoList.length; i++){
-                result=[];
-                resultPlace=[];
+    } else { //첫번 째 시도에서 구한 center에서 만날 수 없다면 center를 옮겨줘야 한다.
+        while (!meet) {
+            meet = true;
+            for (var i = 0; i < toDoList.length; i++) {
+                result = [];
+                resultPlace = [];
                 console.log(result);
                 await searchPlace(toDoList[i], coordinate, 10000).then(function (resolvedData) {
                     result.push(resolvedData.length);
