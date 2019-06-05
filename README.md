@@ -1,15 +1,18 @@
 # WhereShallWeMeet
 
 Multi Location based gathering place recommendation service.
+![demo](img/demo.gif)
+
 
 ## TL;DR
 http://165.194.35.214:13000
 
 1. Input your want to do as keyword at `What you want to do?` box.
 2. Click `AND` or `OR` button to combine your input keywords with conditions.
-3. Click `새 위치 추가` button to add user starting place. (at least more than 2 places needed.)
+3. Click `Add Member` button to add user starting place. (at least more than 2 places needed.)
 Input alias name for place at first, then input 도로명 주소 or 지번 주소 for location in Korean.
-4. Click `중간위치 찾기` button. done!
+4. Click `Assemble!` button. done!
+5. If you want to show route from each members to WSWM point, click `Find Route` buttom.
 
 
 ## History
@@ -36,6 +39,10 @@ Using FelixSeol repository. Replace to CAU-OSS-2019/team-project-team10
 
 Change ~~Naver API~~ -> Kakao API
 
+
+##### Before commit : [**5593a06357d2f5a5740a88d058e7044bcd6d8f72**](https://github.com/CAU-OSS-2019/team-project-team10/commit/5593a06357d2f5a5740a88d058e7044bcd6d8f72)
+
+Delete SEARCHED_PLACES nav. Buttons are restyled as bootstrap style.
 
 
 ## Tutorial
