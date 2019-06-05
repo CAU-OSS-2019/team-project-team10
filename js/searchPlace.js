@@ -47,8 +47,7 @@ function searchPlace(_keyword, _coordinate, _radius) {
                                 htmlAddresses.join('<br />'),
                                 '</div>'
                             ].join('\n');
-                        }
-                        else {
+                        } else {
                             var contentString = [ // 정보창 내용 set
                                 '<div style="padding:10px;min-width:330px;line-height:150%;">',
                                 '<h4 style="margin-top:5px;">' + placesData[i].place_name + '</h4><br />',
