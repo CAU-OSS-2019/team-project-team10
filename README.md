@@ -37,6 +37,10 @@ Using FelixSeol repository. Replace to CAU-OSS-2019/team-project-team10
 Change ~~Naver API~~ -> Kakao API
 
 
+##### Before commit : [**5593a06357d2f5a5740a88d058e7044bcd6d8f72**](https://github.com/CAU-OSS-2019/team-project-team10/commit/5593a06357d2f5a5740a88d058e7044bcd6d8f72)
+
+Delete SEARCHED_PLACES nav. Buttons are restyled as bootstrap style.
+
 
 ## Tutorial
 
