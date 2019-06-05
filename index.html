@@ -112,8 +112,8 @@
                 <!--Assemble, Find Route btn group.-->
                 <div class="sidebar-heading justify-content-between align-items-center px-3 mt-lg-4 mb-1 text-center">
                     <div aria-label="Assemble, FindRoute group" class="btn-group align-items-center" role="group">
-                        <input class="btn btn-success btn-lg" onclick="wswm()" type="button" value="Assemble!">
-                        <input class="btn btn-secondary btn-lg" onclick="showLane()" type="button" value="Find Route">
+                        <input id="wswmBtn" class="btn btn-success btn-lg" type="button" value="Assemble!">
+                        <input id="laneBtn" class="btn btn-secondary btn-lg" type="button" value="Find Route">
                     </div>
                 </div>
             </div>
@@ -151,6 +151,8 @@
     var toDoList = []; // test를 위한 임시 toDoList
     var toDoAndOrList = [];
 
+    var mapBoundary = new daum.maps.LatLngBounds();
+
     $(document).ready(function () {
         btnController();
     });
@@ -183,6 +185,15 @@
             console.log(toDoAndOrList + " add OR");
         }
     });
+
+    document.getElementById('wswmBtn').addEventListener('click', function (event) {
+        wswm();
+    });
+
+    document.getElementById('laneBtn').addEventListener('click', function (event) {
+        showLane();
+    });
+
 </script>
 </body>
 </html>
