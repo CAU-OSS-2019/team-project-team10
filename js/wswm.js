@@ -6,7 +6,10 @@ var newCenter = [];
 
 function wswm() {
     console.log(result);
-
+    var center = findCenter(); // 사용자들의 중간 위치 반환.
+    if (isNaN(center)) {
+        return;
+    }
     let topmost = Math.max.apply(null, startPosition_y);
     let leftmost = Math.min.apply(null, startPosition_x);
     let bottommost = Math.min.apply(null, startPosition_y);
@@ -17,7 +20,7 @@ function wswm() {
     map.setBounds(mapBoundary);
     sleep(1500);
 
-    var center = findCenter(); // 사용자들의 중간 위치 반환.
+
     //var center = [37.509218, 126.963359]; //test 를 위한 임시 center
     var a = wswm2(center).then(newCenter => {
 
