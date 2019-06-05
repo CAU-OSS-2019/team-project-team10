@@ -7,7 +7,7 @@ var newCenter = [];
 function wswm() {
     console.log(result);
     var center = findCenter(); // 사용자들의 중간 위치 반환.
-    if (isNaN(center)) {
+    if (isNaN(center[0]) || isNaN(center[1])) {
         return;
     }
     let topmost = Math.max.apply(null, startPosition_y);
