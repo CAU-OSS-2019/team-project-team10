@@ -40,27 +40,28 @@ function btnController() {
             infoList[i].close(); // 맵의 정보창 다 지움
         }
 
-        for (var j = 0; j < markerList.length; j++) {
-            markerList[j].setMap(null);
-            resultInfoList[j].close();
-        }
-
         $('.nav-item').remove(); // ADDED_PLACE 항목 다 지움
         startList = []; // 배열 초기화
         infoList = [];
         nameList = [];
         startPosition_x = [];
-        startPosition_y = [];
-        result = [];
-        markerList = [];
-        resultInfoList = [];
-        imageIndex = 0;
+        startPosition_y = [];     
     });
 
     $('.tdResBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
         toDoList = [];
         toDoAndOrList = [];
         $('.nav-itemToDo').remove();
+
+        for (var j = 0; j < markerList.length; j++) {
+            markerList[j].setMap(null);
+            resultInfoList[j].close();
+        }
+
+        result = [];
+        markerList = [];
+        resultInfoList = [];
+        imageIndex = 0;
     });
 
 }
