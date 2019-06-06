@@ -41,9 +41,7 @@
     <script crossorigin="anonymous"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sx4y6v49bc&submodules=geocoder"
-            type="text/javascript"></script>
-    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eddb65c6ffd9f693777d35d9ff66e70e&libraries=services"
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=eddb65c6ffd9f693777d35d9ff66e70e&libraries=services"
             type="text/javascript"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/searchPlace.js"></script>
@@ -59,70 +57,75 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-3" href="#">WhereShallWeMeet</a>
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap align-content p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-3 align-items-center" href="#">WhereShallWeMeet</a>
 </nav>
 
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-                <input aria-label="Search" id="whatToDo" placeholder="             What you want to do?" size="32"
+                <!--What you want to do input form-->
+                <input aria-label="Input search query" class="form-control form-control-lg" id="whatToDo" placeholder="What you want to do?"
                        type="text">
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>ToDoList</span>
-                    <a id ="toDoAndOr" class="d-flex align-items-center text-muted" >
-                        <span data-feather="plus-circle"></span>
-                        <input id="buttonAND" type="button" value="AND">
-                        <input id="buttonOR" type="button" value="OR">
 
+                <!--TO-DO-LIST, AND OR RESET button group-->
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <a class="d-flex align-content-md-start" id="toDoAndOrText">
+                        <span>To-Do List</span>
+                    </a>
+                    <a class="d-flex align-items-center" id="toDoAndOr">
+                        <!--AND OR Reset button group.-->
+                        <div aria-label="Toolbar with AND/OR/RESET button groups" class="btn-toolbar" role="toolbar">
+                            <div aria-label="AND/OR group" class="btn-group mr-2" role="group">
+                                <input class="btn btn-light btn-sm" id="buttonAND" type="button" value="AND">
+                                <input class="btn btn-light btn-sm" id="buttonOR" type="button" value="OR">
+                            </div>
+                            <div aria-label="Reset group" class="btn-group" role="group">
+                                <button class='tdResBtn btn btn-outline-danger btn-sm' type="button">Reset</button>
+                            </div>
+                        </div>
                     </a>
                 </h6>
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
 
+                <!--AND OR flag-->
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-lg-3 mt-4 mb-1 ">
                     <ul class="nav flex-column mb-2" id="toDoList"></ul>
                     <ul class="nav flex-column mb-2" id="andOrList"></ul>
-                <!--list to append and, or text-->
+                    <!--list to append and, or text-->
                 </h6>
 
-                </ul>
+                <!--Members title, Add Member button.-->
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>SEARCHED_PLACES</span>
-                    <a id="searchedPlaceList" class="d-flex align-items-center text-muted" href="#">
+                    <a class="d-flex align-content-md-start" id="memberListTitle">
+                        <span>MEMBERS</span>
+                    </a>
+                    <a class="d-flex align-items-center" id="memberList">
                         <span data-feather="plus-circle"></span>
                     </a>
+                    <button class='addBtn btn btn-outline-primary btn-sm' type="button">Add Member</button>
                 </h6>
-                    <ul id="searchedPlace" class="nav flex-column mb-2">
-
-                    </ul>
-                <h6
-                    class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>ADDED_PLACES</span>
-                    <a id="addedPlaceList" class="d-flex align-items-center text-muted" >
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul id="addedPlace" class="nav flex-column mb-2">
-
+                <ul class="nav flex-column mb-2" id="member">
+                    <!--Member items listed here.-->
                 </ul>
-                <ul id="addcontainer">
 
-                </ul>
-                <ul id="resetcontainer">
-
-                </ul>
-                <input type="button" value="중간위치 찾기" onclick="wswm()">
-                <input type="button" value="Find lane" onclick="showLane()">
+                <!--Assemble, Find Route btn group.-->
+                <div class="sidebar-heading justify-content-between align-items-center px-3 mt-lg-4 mb-1 text-center">
+                    <div aria-label="Assemble, FindRoute group" class="btn-group align-items-center" role="group">
+                        <input id="wswmBtn" class="btn btn-success btn-lg" type="button" value="Assemble!">
+                        <input id="laneBtn" class="btn btn-secondary btn-lg" type="button" value="Find Route">
+                    </div>
+                </div>
             </div>
         </nav>
 
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+        <main class="col-md-10 ml-sm-auto col-lg-10 px-4" role="main">
             <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             </div>
 
             <div id="map" style="width:100%;height:900px;"></div>
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas>
         </main>
     </div>
 </div>
@@ -131,7 +134,7 @@
         mapOption = {
             center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
-        }
+        };
     var map = new daum.maps.Map(mapContainer, mapOption);
     var markerList = [];
     var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
@@ -139,7 +142,6 @@
     var resultNameList = [];
     var startList = [];
     var infoList = [];
-    var searchedInfoList = [];
     var nameList = [];
     var startPosition_x = [];
     var startPosition_y = [];
@@ -149,10 +151,7 @@
     var toDoList = []; // test를 위한 임시 toDoList
     var toDoAndOrList = [];
 
-
-    $('#addcontainer').append(addBtn());
-    $('#searchedPlaceList').append(resetBtn());
-    $('#toDoAndOr').append(toDoResetBtn());
+    var mapBoundary = new daum.maps.LatLngBounds();
 
     $(document).ready(function () {
         btnController();
@@ -193,6 +192,15 @@
             console.log(toDoAndOrList + " add OR");
         }
     });
+
+    document.getElementById('wswmBtn').addEventListener('click', function (event) {
+        wswm();
+    });
+
+    document.getElementById('laneBtn').addEventListener('click', function (event) {
+        showLane();
+    });
+
 </script>
 </body>
 </html>
