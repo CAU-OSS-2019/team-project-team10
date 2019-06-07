@@ -18,18 +18,20 @@ function btnController() {
     });
 
     $('.chnBtn').off().click(function () { // '이름변경' 버튼을 눌렀을 때
-        var cle = $(this).closest('a');
-        var i = $(this).closest('li').index();
+        // var cle = $(this).closest('a');
+        // var i = $(this).closest('li').index();
+        var liTag = $(this).closest('li');
+        var i = liTag.index();
+        var aTag = liTag.find("a");
+
         var input = prompt('이름을 입력해주세요');
-        cle.text(input);
-        cle.append(' ' + changeBtn() + ' ' + delBtn());
-        console.log(startList);
+        aTag.text(input);
+        aTag.append('</a>');
         $('.' + nameList[i]).text(input);
         nameList[i].replace(nameList[i], input);
         $(document).ready(function () { // 동적으로 생성된 버튼에 이벤트 추가
             btnController();
         });
-
     });
 
     $('.resBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
@@ -38,7 +40,7 @@ function btnController() {
             infoList[i].close(); // 맵의 정보창 다 지움
         }
 
-        for (var j = 0;j<markerList.length;j++){
+        for (var j = 0; j < markerList.length; j++) {
             markerList[j].setMap(null);
             resultInfoList[j].close();
         }
@@ -57,7 +59,7 @@ function btnController() {
 
     $('.tdResBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
         toDoList = [];
-        toDoAndOrList = [];     
+        toDoAndOrList = [];
         $('.nav-itemToDo').remove();
     });
 
