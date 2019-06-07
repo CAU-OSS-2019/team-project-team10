@@ -164,7 +164,7 @@
             if(whatToDoTextbox.value !== ""){
                 var toDo = whatToDoTextbox.value;
                 toDoList.push(toDo);
-                let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+                let text = `<li class='nav-itemToDo lead'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
                 $('#toDoList').append(text);
                 console.log(toDoList);
                 whatToDoTextbox.value = "";
