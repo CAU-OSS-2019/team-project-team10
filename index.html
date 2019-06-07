@@ -159,12 +159,19 @@
 
     //할일 목록 작성하기.
     document.getElementById('whatToDo').addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
-            var toDo = document.getElementById('whatToDo').value;
-            toDoList.push(toDo);
-            let text = `<li class='nav-itemToDo lead'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
-            $('#toDoList').append(text);
-            console.log(toDoList);
+        let whatToDoTextbox = document.getElementById('whatToDo');
+        if ( event.key === 'Enter' ){
+            if(whatToDoTextbox.value !== ""){
+                var toDo = whatToDoTextbox.value;
+                toDoList.push(toDo);
+                let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+                $('#toDoList').append(text);
+                console.log(toDoList);
+                whatToDoTextbox.value = "";
+            }
+            else{
+                alert("잘못된 입력입니다.");
+            }
         }
     });
 
