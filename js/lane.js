@@ -1,23 +1,14 @@
 function showLane (){
-   // var sx = 126.93737555322481;
-   // var sy = 37.55525165729346;
-   // var ex = 126.88265238619182;
-   // var ey = 37.481440035175375;
-
 
    var startPoints = []
    for(var i=0;i<startPosition_x.length;i++){
     startPoints.push({'position':{'x':startPosition_x[i], 'y':startPosition_y[i]}});
    }
 
-
-   // console.log(startList);
-   // console.log("test button cliced");
    var middlePoint = {'position':{'x':resultMiddlePoint[0], 'y':resultMiddlePoint[1]}};
-   console.log(middlePoint);
+   // console.log(middlePoint);
    var ex = middlePoint.position.x;
    var ey = middlePoint.position.y;
-
 
     var promises = [];
      
@@ -67,9 +58,7 @@ function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos){
           .then(function(res){
           res.json().then(body=>{
             var resultJsonData = JSON.parse(body);
-            // console.log(body);
-            // console.log("Map data");
-            // console.log(startPos, endPos);
+
             drawMapPolyLine(resultJsonData, pathArray, startPos, endPos);      // 노선그래픽데이터 지도위 표시
             // boundary 데이터가 있을경우, 해당 boundary로 지도이동
             if(resultJsonData.result.boundary){
@@ -96,13 +85,7 @@ function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos){
          lineArray = new Array();
          for(var j=0 ; j <data.result.lane[i].section.length; j++){
 
-            // console.log(data.result.lane[i].section[j].graphPos.length/2);
-            // showPubInfo(pubInfo, data.result.lane[i].section[j].graphPos[parseInt(data.result.lane[i].section[j].graphPos.length/2)]);
-            // console.log(data.result.lane[i].section[j].graphPos);
-            // console.log(pubInfo);
-            // console.log(pathArray);
-            // console.log(startPos.position);
-            // console.log(i, j);
+            showPubInfo(pubInfo, data.result.lane[i].section[j].graphPos[parseInt(data.result.lane[i].section[j].graphPos.length/2)]);
 
             for(var k=0 ; k < data.result.lane[i].section[j].graphPos.length; k++){
                lineArray.push(new daum.maps.LatLng(data.result.lane[i].section[j].graphPos[k].y, data.result.lane[i].section[j].graphPos[k].x));
@@ -142,22 +125,17 @@ function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos){
 
 function showPubInfo(pubInfo, position) {
   console.log(pubInfo, position);
-  var point = new daum.maps.Point(position.x, position.y); // 좌표
+  var point = new daum.maps.LatLng(position.y, position.x); // 좌표
   var infowindow = new daum.maps.InfoWindow({ // 새로운 정보창
-    name: point
+    removable: true
    });
 
   infowindow.setContent(pubInfo);
+  console.log(infowindow.getContent());
   var marker = new daum.maps.Marker({ // 새로운 마커
       position: point,
       map: map,
-      clickable: true,
-      // icon: {
-      //   url: '/img/bus.png',
-      // },
   });
-
-  // infowindow.open(map, marker); // 정보창 열린 상태로 추가
 
   daum.maps.Event.addListener(marker, "click", function(e) { 
       if (infowindow.getMap()) {
@@ -166,4 +144,8 @@ function showPubInfo(pubInfo, position) {
           infowindow.open(map, marker);
       }
   });
+
+  infowindow.open(map, marker); // 정보창 열린 상태로 추가
+
+
 }
