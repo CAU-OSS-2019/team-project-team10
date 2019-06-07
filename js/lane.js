@@ -77,37 +77,7 @@ function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos) {
       })
 
    };
-   
-   
-   // 노선그래픽 데이터를 이용하여 지도위 폴리라인 그려주는 함수
-   function drawMapPolyLine(data, pathArray, startPos, endPos){
-      var lineArray;
-      // console.log(data);
-      var strokeColorArr = ['#003499',`#003499`,`#37b42d`,`#fa5f2c`,`#3171d3`,`#893bb6`,`#9a4e0f`,`#606d00`,`#e71e6e`,`#bf9f1e`,`#FF0000`,`#FF0000`];
-      for(var i = 0 ; i < data.result.lane.length; i++){
-         // showPubInfo(data.result.lane[i].type, )
-         var pubInfo = pathArray[i];
-         lineArray = new Array();
-         for(var j=0 ; j <data.result.lane[i].section.length; j++){
-            .then(function (res) {
-                res.json().then(body => {
-                    var resultJsonData = JSON.parse(body);
-                    // console.log(body);
-                    // console.log("Map data");
-                    // console.log(startPos, endPos);
-                    drawMapPolyLine(resultJsonData, pathArray, startPos, endPos);      // 노선그래픽데이터 지도위 표시
-                    // boundary 데이터가 있을경우, 해당 boundary로 지도이동
-                    if (resultJsonData.result.boundary) {
-                        var boundary = new daum.maps.LatLngBounds();
-                        boundary.extend(new daum.maps.LatLng(resultJsonData.result.boundary.top, resultJsonData.result.boundary.left));
-                        boundary.extend(new daum.maps.LatLng(resultJsonData.result.boundary.bottom, resultJsonData.result.boundary.right));
-                        map.setBounds(boundary);
-                    }
-                })
-            })
-    }
-  }
-}
+
 // 노선그래픽 데이터를 이용하여 지도위 폴리라인 그려주는 함수
 function drawMapPolyLine(data, pathArray, startPos, endPos) {
     var lineArray;
