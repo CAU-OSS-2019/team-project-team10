@@ -26,23 +26,20 @@
     <link href="css/dashboard.css" rel="stylesheet">
 
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
-          name="viewport">
+        name="viewport">
     <title>Where Shall We Meet</title>
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script crossorigin="anonymous"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=eddb65c6ffd9f693777d35d9ff66e70e&libraries=services"
-            type="text/javascript"></script>
+        type="text/javascript"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/searchPlace.js"></script>
     <script src="js/makeMarker.js"></script>
@@ -57,34 +54,36 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap align-content p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-3 align-items-center" href="#">WhereShallWeMeet</a>
-</nav>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap align-content p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-3 align-items-center" href="#">WhereShallWeMeet</a>
+    </nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <!--What you want to do input form-->
-                <input aria-label="Input search query" class="form-control form-control-lg" id="whatToDo" placeholder="What you want to do?"
-                       type="text">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <!--What you want to do input form-->
+                    <input aria-label="Input search query" class="form-control form-control-lg" id="whatToDo"
+                        placeholder="What you want to do?" type="text">
 
-                <!--TO-DO-LIST, AND OR RESET button group-->
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <a class="d-flex align-content-md-start" id="toDoAndOrText">
-                        <span>To-Do List</span>
-                    </a>
-                    <a class="d-flex align-items-center" id="toDoAndOr">
-                        <!--AND OR Reset button group.-->
-                        <div aria-label="Toolbar with AND/OR/RESET button groups" class="btn-toolbar" role="toolbar">
-                            <div aria-label="AND/OR group" class="btn-group mr-2" role="group">
-                                <input class="btn btn-light btn-sm" id="buttonAND" type="button" value="AND">
-                                <input class="btn btn-light btn-sm" id="buttonOR" type="button" value="OR">
+                    <!--TO-DO-LIST, AND OR RESET button group-->
+                    <h6
+                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <a class="d-flex align-content-md-start" id="toDoAndOrText">
+                            <span>To-Do List</span>
+                        </a>
+                        <a class="d-flex align-items-center" id="toDoAndOr">
+                            <!--AND OR Reset button group.-->
+                            <div aria-label="Toolbar with AND/OR/RESET button groups" class="btn-toolbar"
+                                role="toolbar">
+                                <div aria-label="AND/OR group" class="btn-group mr-2" role="group">
+                                    <input class="btn btn-light btn-sm" id="buttonAND" type="button" value="AND">
+                                    <input class="btn btn-light btn-sm" id="buttonOR" type="button" value="OR">
+                                </div>
+                                <div aria-label="Reset group" class="btn-group" role="group">
+                                    <button class='tdResBtn btn btn-outline-danger btn-sm' type="button">Reset</button>
+                                </div>
                             </div>
-                            <div aria-label="Reset group" class="btn-group" role="group">
-                                <button class='tdResBtn btn btn-outline-danger btn-sm' type="button">Reset</button>
-                            </div>
-                        </div>
                     </a>
                 </h6>
 
@@ -117,17 +116,17 @@
                         <input id="laneBtn" class="btn btn-secondary btn-lg" type="button" value="Find Route">
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
 
-        <main class="col-md-10 ml-sm-auto col-lg-10 px-4" role="main">
-            <div
+            <main class="col-md-10 ml-sm-auto col-lg-10 px-4" role="main">
+                <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            </div>
+                </div>
 
-            <div id="map" style="width:100%;height:900px;"></div>
-            <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas>
-        </main>
+                <div id="map" style="width:100%;height:900px;"></div>
+                <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas>
+            </main>
+        </div>
     </div>
 </div>
 <script>
@@ -188,14 +187,18 @@
         }
     });
 
-    document.getElementById('wswmBtn').addEventListener('click', function (event) {
-        wswm();
-    });
 
-    document.getElementById('laneBtn').addEventListener('click', function (event) {
-        showLane();
-    });
+        document.getElementById('wswmBtn').addEventListener('click', function (event) {
+            for (var i = 0; i < polylineTemp.length; i++) {
+                polylineTemp[i].setMap(null);
+            }
+            polylineTemp = [];
+            wswm();
+        });
 
+        document.getElementById('laneBtn').addEventListener('click', function (event) {
+            showLane();
+        });
 function insertImg()
 {
  var path = '<img src='+markerImageList[toDoList.length-1]+'>';
@@ -203,5 +206,7 @@ function insertImg()
 }
 
 </script>
+
 </body>
+
 </html>
