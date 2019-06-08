@@ -7,13 +7,13 @@ function showLane() {
 
     var startPoints = [];
     for (var i = 0; i < startPosition_x.length; i++) {
-        startPoints.push({'position': {'x': startPosition_x[i], 'y': startPosition_y[i]}});
+        startPoints.push({ 'position': { 'x': startPosition_x[i], 'y': startPosition_y[i] } });
     }
 
 
     // console.log(startList);
     // console.log("test button cliced");
-    var middlePoint = {'position': {'x': resultMiddlePoint[0], 'y': resultMiddlePoint[1]}};
+    var middlePoint = { 'position': { 'x': resultMiddlePoint[0], 'y': resultMiddlePoint[1] } };
     console.log(middlePoint);
     var ex = middlePoint.position.x;
     var ey = middlePoint.position.y;
@@ -116,6 +116,7 @@ function drawMapPolyLine(data, pathArray, startPos, endPos) {
                 path: walkPolylineArr,
                 strokeWeight: 10
             })
+            polylineTemp.push(walkPolyline);
         }
         // console.log(walkPolylineArr);
 
@@ -126,6 +127,7 @@ function drawMapPolyLine(data, pathArray, startPos, endPos) {
                 path: walkPolylineArr,
                 strokeWeight: 10
             })
+            polylineTemp.push(walkPolyline);
         }
         // console.log(walkPolylineArr);
 
@@ -135,6 +137,7 @@ function drawMapPolyLine(data, pathArray, startPos, endPos) {
             strokeWeight: 3,
             strokeColor: strokeColorArr[data.result.lane[i].type],
         });
+        polylineTemp.push(polyline);
     }
 }
 
