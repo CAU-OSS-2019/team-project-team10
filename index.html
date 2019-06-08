@@ -90,8 +90,9 @@
 
                 <!--AND OR flag-->
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-lg-3 mt-4 mb-1 ">
-                    <ul class="nav flex-column mb-2" id="toDoList"></ul>
-                    <ul class="nav flex-column mb-2" id="andOrList"></ul>
+                    <ul class="nav flex-column mb-3" id="toDoList"></ul>
+                    <ul class="nav flex-column mb-3" id ="markerList"></ul>
+                    <ul class="nav flex-column mb-3" id="andOrList"></ul>
                     <!--list to append and, or text-->
                 </h6>
 
@@ -163,6 +164,7 @@
             var toDo = document.getElementById('whatToDo').value;
             toDoList.push(toDo);
             let text = `<li class='nav-itemToDo lead'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+            $('#markerList').append(insertImg());
             $('#toDoList').append(text);
             console.log(toDoList);
         }
@@ -193,6 +195,12 @@
     document.getElementById('laneBtn').addEventListener('click', function (event) {
         showLane();
     });
+
+function insertImg()
+{
+ var path = '<img src='+markerImageList[toDoList.length-1]+'>';
+ return path;
+}
 
 </script>
 </body>
