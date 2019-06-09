@@ -55,12 +55,15 @@
 
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap align-content p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-3 align-items-center" href="#">WhereShallWeMeet</a>
+        <a class="navbar-brand px-3" href="#">WhereShallWeMeet</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#side">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </nav>
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <nav id="side" class="col-lg-3 bg-light sidebar collapse">
                 <div class="sidebar-sticky">
                     <!--What you want to do input form-->
                     <input aria-label="Input search query" class="form-control form-control-lg" id="whatToDo"
@@ -113,20 +116,16 @@
                     <div
                         class="sidebar-heading justify-content-between align-items-center px-3 mt-lg-4 mb-1 text-center">
                         <div aria-label="Assemble, FindRoute group" class="btn-group align-items-center" role="group">
-                            <input id="wswmBtn" class="btn btn-success btn-lg" type="button" value="Assemble!">
-                            <input id="laneBtn" class="btn btn-secondary btn-lg" type="button" value="Find Route">
+                            <input id="wswmBtn" class="btn btn-success" type="button" value="Assemble!">
+                            <input id="laneBtn" class="btn btn-secondary" type="button" value="Find Route">
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <main class="col-md-10 ml-sm-auto col-lg-10 px-4" role="main">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                </div>
-
-                <div id="map" style="width:100%;height:900px;"></div>
-                <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas>
+            <main class="col-lg-9 ml-sm-auto px-0" role="main" style="height: 100vh;">
+                <div id="map" style="width: 100%; height: 100%;"></div>
+                <!-- <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas> -->
             </main>
         </div>
     </div>
@@ -134,7 +133,10 @@
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
+                level: 3, // 지도의 확대 레벨
+                autosize: true,
+                offsetX: 0,
+                offsetY: 24
             };
         var map = new daum.maps.Map(mapContainer, mapOption);
         var markerList = [];
