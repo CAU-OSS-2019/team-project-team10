@@ -133,7 +133,10 @@
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
+            level: 3 ,// 지도의 확대 레벨
+            autosize: true,
+            offsetX: 0,
+            offsetY: 24
         };
     var map = new daum.maps.Map(mapContainer, mapOption);
     var markerList = [];
@@ -155,6 +158,7 @@
 
     $(document).ready(function () {
         btnController();
+        newPointByClick();
     });
 
     //할일 목록 작성하기.
