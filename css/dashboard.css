@@ -47,9 +47,11 @@ body {
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
+  @media (min-width: 992px) {
+    .sidebar-sticky {
+      position: -webkit-sticky;
+      position: sticky;
+    }
   }
 }
 
