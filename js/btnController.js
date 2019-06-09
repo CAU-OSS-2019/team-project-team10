@@ -53,6 +53,7 @@ function btnController() {
     $('.tdResBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
         toDoList = [];
         toDoAndOrList = [];
+        $('#markerList').remove();
         $('.nav-itemToDo').remove();
 
         for (var j = 0; j < markerList.length; j++) {

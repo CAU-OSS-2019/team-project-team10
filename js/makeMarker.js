@@ -15,6 +15,7 @@ async function createMarker(resultItem, imageIndex) {
     var name = resultItem.place_name;
     var point = new daum.maps.LatLng(resultItem.y, resultItem.x);
     var imageSrc = markerImageList[imageIndex];
+    console.log(imageSrc);
     var imageSize = new daum.maps.Size(36, 41);
     var imageOption = {};
     var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);

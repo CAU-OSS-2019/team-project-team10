@@ -87,38 +87,37 @@
                                     <button class='tdResBtn btn btn-outline-danger btn-sm' type="button">Reset</button>
                                 </div>
                             </div>
-                        </a>
-                    </h6>
 
-                    <!--AND OR flag-->
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-lg-3 mt-4 mb-1 ">
-                        <ul class="nav flex-column mb-2" id="toDoList"></ul>
-                        <ul class="nav flex-column mb-2" id="andOrList"></ul>
-                        <!--list to append and, or text-->
-                    </h6>
+                    </a>
+                </h6>
 
-                    <!--Members title, Add Member button.-->
-                    <h6
-                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <a class="d-flex align-content-md-start" id="memberListTitle">
-                            <span>MEMBERS</span>
-                        </a>
-                        <a class="d-flex align-items-center" id="memberList">
-                            <span data-feather="plus-circle"></span>
-                        </a>
-                        <button class='addBtn btn btn-outline-primary btn-sm' type="button">Add Member</button>
-                    </h6>
-                    <ul class="nav flex-column mb-2" id="member">
-                        <!--Member items listed here.-->
-                    </ul>
+                <!--AND OR flag-->
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-lg-3 mt-4 mb-1 ">
+                    <ul class="nav flex-column mb-3" id="toDoList"></ul>
+                    <ul class="nav flex-column mb-3" id ="markerList"></ul>
+                    <ul class="nav flex-column mb-3" id="andOrList"></ul>
+                    <!--list to append and, or text-->
+                </h6>
 
-                    <!--Assemble, Find Route btn group.-->
-                    <div
-                        class="sidebar-heading justify-content-between align-items-center px-3 mt-lg-4 mb-1 text-center">
-                        <div aria-label="Assemble, FindRoute group" class="btn-group align-items-center" role="group">
-                            <input id="wswmBtn" class="btn btn-success" type="button" value="Assemble!">
-                            <input id="laneBtn" class="btn btn-secondary" type="button" value="Find Route">
-                        </div>
+                <!--Members title, Add Member button.-->
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <a class="d-flex align-content-md-start" id="memberListTitle">
+                        <span>MEMBERS</span>
+                    </a>
+                    <a class="d-flex align-items-center" id="memberList">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                    <button class='addBtn btn btn-outline-primary btn-sm' type="button">Add Member</button>
+                </h6>
+                <ul class="nav flex-column mb-2" id="member">
+                    <!--Member items listed here.-->
+                </ul>
+
+                <!--Assemble, Find Route btn group.-->
+                <div class="sidebar-heading justify-content-between align-items-center px-3 mt-lg-4 mb-1 text-center">
+                    <div aria-label="Assemble, FindRoute group" class="btn-group align-items-center" role="group">
+                        <input id="wswmBtn" class="btn btn-success btn-lg" type="button" value="Assemble!">
+                        <input id="laneBtn" class="btn btn-secondary btn-lg" type="button" value="Find Route">
                     </div>
                 </div>
             </nav>
@@ -129,74 +128,65 @@
             </main>
         </div>
     </div>
-    <script>
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-                center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
-                level: 3, // 지도의 확대 레벨
-                autosize: true,
-                offsetX: 0,
-                offsetY: 24
-            };
-        var map = new daum.maps.Map(mapContainer, mapOption);
-        var markerList = [];
-        var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
-        var resultInfoList = [];
-        var resultNameList = [];
-        var startList = [];
-        var infoList = [];
-        var nameList = [];
-        var startPosition_x = [];
-        var startPosition_y = [];
-        var result = [];
-        var resultMiddlePoint = [];
+</div>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+    var map = new daum.maps.Map(mapContainer, mapOption);
+    var markerList = [];
+    var markerImageList = ['./img/marker1.png', './img/marker2.png', './img/marker3.png', './img/marker4.png', './img/marker5.png', './img/marker6.png'];
+    var resultInfoList = [];
+    var resultNameList = [];
+    var startList = [];
+    var infoList = [];
+    var nameList = [];
+    var startPosition_x = [];
+    var startPosition_y = [];
+    var result = [];
+    var resultMiddlePoint = [];
 
-        var toDoList = []; // test를 위한 임시 toDoList
-        var toDoAndOrList = [];
+    var toDoList = []; // test를 위한 임시 toDoList
+    var toDoAndOrList = [];
 
-        var mapBoundary = new daum.maps.LatLngBounds();
+    var mapBoundary = new daum.maps.LatLngBounds();
 
-        var polylineTemp = []; //지도에 그린 길을 다시 찾기 위해
+    $(document).ready(function () {
+        btnController();
+    });
 
-        $(document).ready(function () {
-            btnController();
-        });
+    //할일 목록 작성하기.
+    document.getElementById('whatToDo').addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            var toDo = document.getElementById('whatToDo').value;
+            toDoList.push(toDo);
+            let text = `<li class='nav-itemToDo lead'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+            $('#markerList').append(insertImg());
+            $('#toDoList').append(text);
+            console.log(toDoList);
+        }
+    });
 
-        //할일 목록 작성하기.
-        document.getElementById('whatToDo').addEventListener('keypress', function (event) {
-            let whatToDoTextbox = document.getElementById('whatToDo');
-            if (event.key === 'Enter') {
-                if (whatToDoTextbox.value !== "") {
-                    var toDo = whatToDoTextbox.value;
-                    toDoList.push(toDo);
-                    let text = `<li class='nav-itemToDo lead'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
-                    $('#toDoList').append(text);
-                    console.log(toDoList);
-                    whatToDoTextbox.value = "";
-                }
-                else {
-                    alert("잘못된 입력입니다.");
-                }
-            }
-        });
+    document.getElementById('buttonAND').addEventListener('click', function (event) {
+        if (toDoList.length > toDoAndOrList.length) {
+            toDoAndOrList.push(0);
+            let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${"AND"}</a></li>`;
+            $('#andOrList').append(text);
+            console.log(toDoAndOrList + " add AND");
+        }
+    });
 
-        document.getElementById('buttonAND').addEventListener('click', function (event) {
-            if (toDoList.length > toDoAndOrList.length) {
-                toDoAndOrList.push(0);
-                let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${"AND"}</a></li>`;
-                $('#andOrList').append(text);
-                console.log(toDoAndOrList + " add AND");
-            }
-        });
+    document.getElementById('buttonOR').addEventListener('click', function (event) {
+        if (toDoList.length > toDoAndOrList.length) {
+            toDoAndOrList.push(1);
+            let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${"OR"}</a></li>`;
+            $('#andOrList').append(text);
+            console.log(toDoAndOrList + " add OR");
+        }
+    });
 
-        document.getElementById('buttonOR').addEventListener('click', function (event) {
-            if (toDoList.length > toDoAndOrList.length) {
-                toDoAndOrList.push(1);
-                let text = `<li class='nav-itemToDo'><a class='nav-link'><span data-feather='file-text'></span>${"OR"}</a></li>`;
-                $('#andOrList').append(text);
-                console.log(toDoAndOrList + " add OR");
-            }
-        });
 
         document.getElementById('wswmBtn').addEventListener('click', function (event) {
             for (var i = 0; i < polylineTemp.length; i++) {
@@ -209,8 +199,14 @@
         document.getElementById('laneBtn').addEventListener('click', function (event) {
             showLane();
         });
+function insertImg()
+{
+ var path = '<img src='+markerImageList[toDoList.length-1]+'>';
+ return path;
+}
 
-    </script>
+</script>
+
 </body>
 
 </html>
