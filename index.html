@@ -155,6 +155,8 @@
     var toDoAndOrList = [];
 
     var mapBoundary = new daum.maps.LatLngBounds();
+    
+    var polylineTemp = []; //지도에 그린 길을 다시 찾기 위해
 
     $(document).ready(function () {
         btnController();
