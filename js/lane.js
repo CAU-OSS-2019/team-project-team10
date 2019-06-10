@@ -1,7 +1,7 @@
 function showLane() {
     var startPoints = [];
     for (var i = 0; i < startPosition_x.length; i++) {
-        startPoints.push({'position': {'x': startPosition_x[i], 'y': startPosition_y[i]}});
+        startPoints.push({ 'position': { 'x': startPosition_x[i], 'y': startPosition_y[i] } });
     }
 
     var middlePoint = {'position':{'x':resultMiddlePoint[0], 'y':resultMiddlePoint[1]}};
@@ -66,12 +66,14 @@ function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos) {
 
             drawMapPolyLine(resultJsonData, pathArray, startPos, endPos);      // 노선그래픽데이터 지도위 표시
             // boundary 데이터가 있을경우, 해당 boundary로 지도이동
-            if(resultJsonData.result.boundary){
-                  var boundary = new daum.maps.LatLngBounds();
-                  boundary.extend(new daum.maps.LatLng(resultJsonData.result.boundary.top, resultJsonData.result.boundary.left));
-                  boundary.extend(new daum.maps.LatLng(resultJsonData.result.boundary.bottom, resultJsonData.result.boundary.right));
-                  map.setBounds(boundary);
-            }
+            let topmost = Math.max.apply(null, startPosition_y);
+            let leftmost = Math.min.apply(null, startPosition_x);
+            let bottommost = Math.min.apply(null, startPosition_y);
+            let rightmost = Math.max.apply(null, startPosition_x);
+
+            mapBoundary.extend(new daum.maps.LatLng(topmost, leftmost));
+            mapBoundary.extend(new daum.maps.LatLng(bottommost, rightmost));
+            map.setBounds(mapBoundary);
          })
       })  
       })
@@ -103,6 +105,7 @@ function drawMapPolyLine(data, pathArray, startPos, endPos) {
                 path: walkPolylineArr,
                 strokeWeight: 10
             })
+            polylineTemp.push(walkPolyline);
         }
         // console.log(walkPolylineArr);
 
@@ -113,6 +116,7 @@ function drawMapPolyLine(data, pathArray, startPos, endPos) {
                 path: walkPolylineArr,
                 strokeWeight: 10
             })
+            polylineTemp.push(walkPolyline);
         }
         // console.log(walkPolylineArr);
 
@@ -122,6 +126,7 @@ function drawMapPolyLine(data, pathArray, startPos, endPos) {
             strokeWeight: 3,
             strokeColor: strokeColorArr[data.result.lane[i].type],
         });
+        polylineTemp.push(polyline);
     }
 }
 
