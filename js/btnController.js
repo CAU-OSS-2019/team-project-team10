@@ -14,6 +14,8 @@ function btnController() {
         infoList.splice(i, 1);
         startList.splice(i, 1); // 마커를 배열에서 삭제
         nameList.splice(i, 1);
+        startPosition_x.splice(i, 1);//마커를 시작위치를 계산하는 배열에서도 삭제
+        startPosition_y.splice(i, 1);
         cle.remove(); // 왼쪽 ADDED_PLACE 에서 삭제
     });
 
@@ -45,12 +47,13 @@ function btnController() {
         infoList = [];
         nameList = [];
         startPosition_x = [];
-        startPosition_y = [];     
+        startPosition_y = [];
     });
 
     $('.tdResBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
         toDoList = [];
         toDoAndOrList = [];
+        $('#markerList').remove();
         $('.nav-itemToDo').remove();
 
         for (var j = 0; j < markerList.length; j++) {

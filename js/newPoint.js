@@ -76,12 +76,11 @@ function newPointByClick(){
     var geocoder = new daum.maps.services.Geocoder();
 
     daum.maps.event.addListener(map, 'rightclick', function(mouseEvent) {
-        
-        geocoder.coord2Address(mouseEvent.latLng.getLng(), mouseEvent.latLng.getLat(), function(result, status) {
-            if (status === daum.maps.services.Status.OK) {
 
-                var name = prompt('이름을 입력해주세요'); // 이름 입력받음
-                
+        var name = prompt('이름을 입력해주세요'); // 이름 입력받음
+
+        geocoder.coord2Address(mouseEvent.latLng.getLng(), mouseEvent.latLng.getLat(), function(result, status) {
+            if (status === daum.maps.services.Status.OK && name != null) {
                 var marker = new daum.maps.Marker({
                     map: map,
                     position: mouseEvent.latLng,
@@ -127,7 +126,7 @@ function newPointByClick(){
                 console.log(startPosition_x);
                 startPosition_x.push(String(mouseEvent.latLng.getLng()));
                 startPosition_y.push(String(mouseEvent.latLng.getLat()));
-            }   
+            }
         });
     });
 

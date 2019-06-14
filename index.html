@@ -26,23 +26,20 @@
     <link href="css/dashboard.css" rel="stylesheet">
 
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
-          name="viewport">
+        name="viewport">
     <title>Where Shall We Meet</title>
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script crossorigin="anonymous"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=eddb65c6ffd9f693777d35d9ff66e70e&libraries=services"
-            type="text/javascript"></script>
+        type="text/javascript"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/searchPlace.js"></script>
     <script src="js/makeMarker.js"></script>
@@ -57,41 +54,48 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap align-content p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-3 align-items-center" href="#">WhereShallWeMeet</a>
-</nav>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap align-content p-0 shadow">
+        <a class="navbar-brand px-3" href="#">WhereShallWeMeet</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#side">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <!--What you want to do input form-->
-                <input aria-label="Input search query" class="form-control form-control-lg" id="whatToDo" placeholder="What you want to do?"
-                       type="text">
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="side" class="col-lg-3 bg-light sidebar collapse">
+                <div class="sidebar-sticky">
+                    <!--What you want to do input form-->
+                    <input aria-label="Input search query" class="form-control form-control-lg" id="whatToDo"
+                        placeholder="What you want to do?" type="text">
 
-                <!--TO-DO-LIST, AND OR RESET button group-->
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <a class="d-flex align-content-md-start" id="toDoAndOrText">
-                        <span>To-Do List</span>
-                    </a>
-                    <a class="d-flex align-items-center" id="toDoAndOr">
-                        <!--AND OR Reset button group.-->
-                        <div aria-label="Toolbar with AND/OR/RESET button groups" class="btn-toolbar" role="toolbar">
-                            <div aria-label="AND/OR group" class="btn-group mr-2" role="group">
-                                <input class="btn btn-light btn-sm" id="buttonAND" type="button" value="AND">
-                                <input class="btn btn-light btn-sm" id="buttonOR" type="button" value="OR">
+                    <!--TO-DO-LIST, AND OR RESET button group-->
+                    <h6
+                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <a class="d-flex align-content-md-start" id="toDoAndOrText">
+                            <span>To-Do List</span>
+                        </a>
+                        <a class="d-flex align-items-center" id="toDoAndOr">
+                            <!--AND OR Reset button group.-->
+                            <div aria-label="Toolbar with AND/OR/RESET button groups" class="btn-toolbar"
+                                role="toolbar">
+                                <div aria-label="AND/OR group" class="btn-group mr-2" role="group">
+                                    <input class="btn btn-light btn-sm" id="buttonAND" type="button" value="AND">
+                                    <input class="btn btn-light btn-sm" id="buttonOR" type="button" value="OR">
+                                </div>
+                                <div aria-label="Reset group" class="btn-group" role="group">
+                                    <button class='tdResBtn btn btn-outline-danger btn-sm' type="button">Reset</button>
+                                </div>
                             </div>
-                            <div aria-label="Reset group" class="btn-group" role="group">
-                                <button class='tdResBtn btn btn-outline-danger btn-sm' type="button">Reset</button>
-                            </div>
-                        </div>
+
                     </a>
                 </h6>
 
                 <!--AND OR flag-->
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-lg-3 mt-4 mb-1 ">
-                    <ul class="nav flex-column mb-2" id="toDoList"></ul>
-                    <ul class="nav flex-column mb-2" id="andOrList"></ul>
+                    <ul class="nav flex-column mb-3" id="toDoList"></ul>
+                    <ul class="nav flex-column mb-3" id ="markerList"></ul>
+                    <ul class="nav flex-column mb-3" id="andOrList"></ul>
                     <!--list to append and, or text-->
                 </h6>
 
@@ -116,24 +120,23 @@
                         <input id="laneBtn" class="btn btn-secondary btn-lg" type="button" value="Find Route">
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
 
-        <main class="col-md-10 ml-sm-auto col-lg-10 px-4" role="main">
-            <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            </div>
-
-            <div id="map" style="width:100%;height:900px;"></div>
-            <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas>
-        </main>
+            <main class="col-lg-9 ml-sm-auto px-0" role="main" style="height: 100vh;">
+                <div id="map" style="width: 100%; height: 100%;"></div>
+                <!-- <canvas class="my-4 w-100" height="380" id="myChart" width="900"></canvas> -->
+            </main>
+        </div>
     </div>
 </div>
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(37.504143, 126.956809), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
+            level: 3 ,// 지도의 확대 레벨
+            autosize: true,
+            offsetX: 0,
+            offsetY: 24
         };
     var map = new daum.maps.Map(mapContainer, mapOption);
     var markerList = [];
@@ -152,6 +155,8 @@
     var toDoAndOrList = [];
 
     var mapBoundary = new daum.maps.LatLngBounds();
+    
+    var polylineTemp = []; //지도에 그린 길을 다시 찾기 위해
 
     $(document).ready(function () {
         btnController();
@@ -160,19 +165,13 @@
 
     //할일 목록 작성하기.
     document.getElementById('whatToDo').addEventListener('keypress', function (event) {
-        let whatToDoTextbox = document.getElementById('whatToDo');
-        if ( event.key === 'Enter' ){
-            if(whatToDoTextbox.value !== ""){
-                var toDo = whatToDoTextbox.value;
-                toDoList.push(toDo);
-                let text = `<li class='nav-itemToDo lead'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
-                $('#toDoList').append(text);
-                console.log(toDoList);
-                whatToDoTextbox.value = "";
-            }
-            else{
-                alert("잘못된 입력입니다.");
-            }
+        if (event.key === 'Enter') {
+            var toDo = document.getElementById('whatToDo').value;
+            toDoList.push(toDo);
+            let text = `<li class='nav-itemToDo lead'><a class='nav-link'><span data-feather='file-text'></span>${toDo}</a></li>`;
+            $('#markerList').append(insertImg());
+            $('#toDoList').append(text);
+            console.log(toDoList);
         }
     });
 
@@ -194,14 +193,26 @@
         }
     });
 
-    document.getElementById('wswmBtn').addEventListener('click', function (event) {
-        wswm();
-    });
 
-    document.getElementById('laneBtn').addEventListener('click', function (event) {
-        showLane();
-    });
+        document.getElementById('wswmBtn').addEventListener('click', function (event) {
+            for (var i = 0; i < polylineTemp.length; i++) {
+                polylineTemp[i].setMap(null);
+            }
+            polylineTemp = [];
+            wswm();
+        });
+
+        document.getElementById('laneBtn').addEventListener('click', function (event) {
+            showLane();
+        });
+function insertImg()
+{
+ var path = '<img src='+markerImageList[toDoList.length-1]+'>';
+ return path;
+}
 
 </script>
+
 </body>
+
 </html>
