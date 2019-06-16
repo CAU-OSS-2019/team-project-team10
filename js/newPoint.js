@@ -18,7 +18,7 @@ function newPoint(name, address) {
 
     geocoder.addressSearch(address, function (result, status) {
 
-        if (status === daum.maps.services.Status.OK) {
+        if (status === daum.maps.services.Status.OK && !name && nameList.find(name) == -1) {
             var point = new daum.maps.LatLng(result[0].y, result[0].x);
 
             var marker = new daum.maps.Marker({
@@ -65,8 +65,9 @@ function newPoint(name, address) {
             map.setCenter(point);
             startPosition_x.push(result[0].x);
             startPosition_y.push(result[0].y);
-        } else {
-            return alert('잘못된 주소 입니다.');
+        } 
+        else {
+            return alert('잘못된 주소 또는 이름(중복/공백) 입니다.');
         }
     });
 
@@ -80,7 +81,7 @@ function newPointByClick(){
         var name = prompt('이름을 입력해주세요'); // 이름 입력받음
 
         geocoder.coord2Address(mouseEvent.latLng.getLng(), mouseEvent.latLng.getLat(), function(result, status) {
-            if (status === daum.maps.services.Status.OK && name != null) {
+            if (status === daum.maps.services.Status.OK && !name && nameList.find(name) == -1) {
                 var marker = new daum.maps.Marker({
                     map: map,
                     position: mouseEvent.latLng,
@@ -126,6 +127,9 @@ function newPointByClick(){
                 console.log(startPosition_x);
                 startPosition_x.push(String(mouseEvent.latLng.getLng()));
                 startPosition_y.push(String(mouseEvent.latLng.getLat()));
+            } 
+            else {
+                return alert('잘못된 주소 또는 이름(중복/공백) 입니다.');
             }
         });
     });
