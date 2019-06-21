@@ -18,7 +18,7 @@ function newPoint(name, address) {
 
     geocoder.addressSearch(address, function (result, status) {
 
-        if (status === daum.maps.services.Status.OK && !name && nameList.find(name) == -1) {
+        if (status === daum.maps.services.Status.OK && name != null && nameList.indexOf(name) == -1) {
             var point = new daum.maps.LatLng(result[0].y, result[0].x);
 
             var marker = new daum.maps.Marker({
@@ -81,7 +81,7 @@ function newPointByClick(){
         var name = prompt('이름을 입력해주세요'); // 이름 입력받음
 
         geocoder.coord2Address(mouseEvent.latLng.getLng(), mouseEvent.latLng.getLat(), function(result, status) {
-            if (status === daum.maps.services.Status.OK && !name && nameList.find(name) == -1) {
+            if (status === daum.maps.services.Status.OK && name != null && nameList.indexOf(name) == -1) {
                 var marker = new daum.maps.Marker({
                     map: map,
                     position: mouseEvent.latLng,
