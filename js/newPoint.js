@@ -19,7 +19,7 @@ function newPoint(name, address) {
 
     geocoder.addressSearch(address, function (result, status) {
 
-        if (status === daum.maps.services.Status.OK && name != null && name.indexOf(' ') != 0 && nameList.indexOf(name) == -1) {
+        if (status === daum.maps.services.Status.OK && nameList.indexOf(name) == -1) {
             var point = new daum.maps.LatLng(result[0].y, result[0].x);
 
             var marker = new daum.maps.Marker({
@@ -79,10 +79,20 @@ function newPointByClick(){
 
     daum.maps.event.addListener(map, 'rightclick', function(mouseEvent) {
 
-        var name = prompt('이름을 입력해주세요'); // 이름 입력받음
-        if (name == '' || name.indexOf(' ') == 0) {       // 공백인 경우
-            while (name == '' || name.indexOf(' ') == 0) {    // 공백이면 계속 입력 받음
+        var blanklength = -1;
+        var name = prompt('이름을 입력해주세요');
+        var results = name.match(/ /g);
+        if(results != null) {
+            blanklength = results.length; 
+        }
+        if (name == '' || name.length == blanklength) {       // 공백인 경우
+            while (name == '' || name.length == blanklength) {    // 공백이면 계속 입력 받음
                 name = prompt('공백입니다. 이름을 다시 입력해주세요.');
+                results = name.match(/ /g);
+                blanklength = -1;
+            if(results != null) {
+                blanklength = results.length; 
+                }   
             }
         }
         if (name == null) {     // '취소' 버튼을 눌렀을 때,
@@ -90,7 +100,7 @@ function newPointByClick(){
         }
 
         geocoder.coord2Address(mouseEvent.latLng.getLng(), mouseEvent.latLng.getLat(), function(result, status) {
-            if (status === daum.maps.services.Status.OK && name != null && name.indexOf(' ') != 0 && nameList.indexOf(name) == -1) {
+            if (status === daum.maps.services.Status.OK  && nameList.indexOf(name) == -1) {
                 var marker = new daum.maps.Marker({
                     map: map,
                     position: mouseEvent.latLng,

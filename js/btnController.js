@@ -1,20 +1,41 @@
 function btnController() {
 
     $('.addBtn').off().click(function () { // '새 위치 추가' 버튼을 눌렀을 때
+        var blanklength = -1;
         var name = prompt('이름을 입력해주세요');
-        if (name == '' || name.indexOf(' ') == 0) {       // 공백인 경우
-            while (name == '' || name.indexOf(' ') == 0) {    // 공백이면 계속 입력 받음
+        var results = name.match(/ /g);
+        if(results != null) {
+            blanklength = results.length; 
+        }
+
+        if (name == '' || name.length == blanklength) {       // 공백인 경우
+            while (name == '' || name.length == blanklength) {    // 공백이면 계속 입력 받음
                 name = prompt('공백입니다. 이름을 다시 입력해주세요.');
+                results = name.match(/ /g);
+                blanklength = -1;
+            if(results != null) {
+                blanklength = results.length; 
+                }   
             }
         }
+
         if (name == null) {     // '취소' 버튼을 눌렀을 때,
             return;
         }
 
-         let address = prompt('주소를 입력해주세요'); // 위치 입력받음
-        if (address == '' || address.indexOf(' ') == 0) {     // 공백인 경우
-            while (address == '' || address.indexOf(' ') == 0) {     // 공백이면 계속 입력 받음
+        blanklength = -1;
+        var address = prompt('주소를 입력해주세요'); // 위치 입력받음
+        results = address.match(/ /g);
+        if(results != null) {
+            blanklength = results.length; 
+        }
+        if (address == '' || address.length == blanklength) {     // 공백인 경우
+            while (address == '' || address.length == blanklength) {     // 공백이면 계속 입력 받음
                 address = prompt('공백입니다. 주소를 다시 입력해주세요.');
+                results = address.match(/ /g);
+            if(results != null) {
+                blanklength = results.length; 
+        }
             }
         }
         if (address == null) {      // '취소' 버튼 눌렀을 때,
