@@ -16,9 +16,10 @@ function newAddedList(name) { // Members에 추가
 function newPoint(name, address) {
     var geocoder = new daum.maps.services.Geocoder();
 
+
     geocoder.addressSearch(address, function (result, status) {
 
-        if (status === daum.maps.services.Status.OK && name != null && nameList.indexOf(name) == -1) {
+        if (status === daum.maps.services.Status.OK && name != null && name.indexOf(' ') != 0 && nameList.indexOf(name) == -1) {
             var point = new daum.maps.LatLng(result[0].y, result[0].x);
 
             var marker = new daum.maps.Marker({
@@ -67,7 +68,7 @@ function newPoint(name, address) {
             startPosition_y.push(result[0].y);
         } 
         else {
-            return alert('잘못된 주소 또는 이름(중복/공백) 입니다.');
+            return alert('잘못된 주소 또는 중복된 이름 입니다.');
         }
     });
 
@@ -79,9 +80,17 @@ function newPointByClick(){
     daum.maps.event.addListener(map, 'rightclick', function(mouseEvent) {
 
         var name = prompt('이름을 입력해주세요'); // 이름 입력받음
+        if (name == '' || name.indexOf(' ') == 0) {       // 공백인 경우
+            while (name == '' || name.indexOf(' ') == 0) {    // 공백이면 계속 입력 받음
+                name = prompt('공백입니다. 이름을 다시 입력해주세요.');
+            }
+        }
+        if (name == null) {     // '취소' 버튼을 눌렀을 때,
+            return;
+        }
 
         geocoder.coord2Address(mouseEvent.latLng.getLng(), mouseEvent.latLng.getLat(), function(result, status) {
-            if (status === daum.maps.services.Status.OK && name != null && nameList.indexOf(name) == -1) {
+            if (status === daum.maps.services.Status.OK && name != null && name.indexOf(' ') != 0 && nameList.indexOf(name) == -1) {
                 var marker = new daum.maps.Marker({
                     map: map,
                     position: mouseEvent.latLng,
@@ -129,7 +138,7 @@ function newPointByClick(){
                 startPosition_y.push(String(mouseEvent.latLng.getLat()));
             } 
             else {
-                return alert('잘못된 주소 또는 이름(중복/공백) 입니다.');
+                return alert('잘못된 주소 또는 중복된 이름 입니다.');
             }
         });
     });

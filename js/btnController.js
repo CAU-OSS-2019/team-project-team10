@@ -1,9 +1,9 @@
 function btnController() {
 
     $('.addBtn').off().click(function () { // '새 위치 추가' 버튼을 눌렀을 때
-        let name = prompt('이름을 입력해주세요.');       // 이름 입력받음
-        if (name == '') {       // 공백인 경우
-            while (name == '') {    // 공백이면 계속 입력 받음
+        var name = prompt('이름을 입력해주세요');
+        if (name == '' || name.indexOf(' ') == 0) {       // 공백인 경우
+            while (name == '' || name.indexOf(' ') == 0) {    // 공백이면 계속 입력 받음
                 name = prompt('공백입니다. 이름을 다시 입력해주세요.');
             }
         }
@@ -11,16 +11,15 @@ function btnController() {
             return;
         }
 
-        let address = prompt('주소를 입력해주세요'); // 위치 입력받음
-        if (address == '') {     // 공백인 경우
-            while (address == '') {     // 공백이면 계속 입력 받음
+         let address = prompt('주소를 입력해주세요'); // 위치 입력받음
+        if (address == '' || address.indexOf(' ') == 0) {     // 공백인 경우
+            while (address == '' || address.indexOf(' ') == 0) {     // 공백이면 계속 입력 받음
                 address = prompt('공백입니다. 주소를 다시 입력해주세요.');
             }
         }
         if (address == null) {      // '취소' 버튼 눌렀을 때,
             return;
         }
-
         newPoint(name, address); // 새로운 출발지
     });
 
