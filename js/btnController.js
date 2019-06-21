@@ -4,8 +4,8 @@ function btnController() {
         var blanklength = -1;
         var name = prompt('이름을 입력해주세요');
         var results = name.match(/ /g);
-        if(results != null) {
-            blanklength = results.length; 
+        if (results != null) {
+            blanklength = results.length;
         }
 
         if (name == '' || name.length == blanklength) {       // 공백인 경우
@@ -13,9 +13,9 @@ function btnController() {
                 name = prompt('공백입니다. 이름을 다시 입력해주세요.');
                 results = name.match(/ /g);
                 blanklength = -1;
-            if(results != null) {
-                blanklength = results.length; 
-                }   
+                if (results != null) {
+                    blanklength = results.length;
+                }
             }
         }
 
@@ -26,16 +26,16 @@ function btnController() {
         blanklength = -1;
         var address = prompt('주소를 입력해주세요'); // 위치 입력받음
         results = address.match(/ /g);
-        if(results != null) {
-            blanklength = results.length; 
+        if (results != null) {
+            blanklength = results.length;
         }
         if (address == '' || address.length == blanklength) {     // 공백인 경우
             while (address == '' || address.length == blanklength) {     // 공백이면 계속 입력 받음
                 address = prompt('공백입니다. 주소를 다시 입력해주세요.');
                 results = address.match(/ /g);
-            if(results != null) {
-                blanklength = results.length; 
-        }
+                if (results != null) {
+                    blanklength = results.length;
+                }
             }
         }
         if (address == null) {      // '취소' 버튼 눌렀을 때,
@@ -91,7 +91,7 @@ function btnController() {
     $('.tdResBtn').off().click(function () { // '초기화' 버튼을 눌렀을 때
         toDoList = [];
         toDoAndOrList = [];
-        $('#markerList').remove();
+        $('#markerList').empty();
         $('.nav-itemToDo').remove();
 
         for (var j = 0; j < markerList.length; j++) {
