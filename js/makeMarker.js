@@ -1,9 +1,10 @@
 function makeMarker(_resultPlace) {
     var imageIndex = 0;
-
+    console.log("마커생성1");
     for (var i = 0; i < _resultPlace.length; i++) {
         for (var j = 0; j < _resultPlace[i].length; j++) {
             createMarker(_resultPlace[i][j], imageIndex);
+            console.log(_resultPlace);
         }
 
         if (imageIndex < 5) imageIndex++;
