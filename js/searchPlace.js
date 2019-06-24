@@ -7,7 +7,7 @@ function searchPlace(_keyword, _coordinate, _radius) {
     // radius unit int : M.
     console.log("searchPlace _radius     : ", _radius);
     return new Promise(function (resolve, reject) {
-        fetch(`http://165.194.35.214:26756/searchPlace/?keyword=${_keyword}&coordinate=${_coordinate}&radius=${_radius}`)
+        fetch(`http://165.194.35.214:3000/searchPlace/?keyword=${_keyword}&coordinate=${_coordinate}&radius=${_radius}`)
             .then(function (res) {
                 // Response as Promise
                 res.json().then(body => {
