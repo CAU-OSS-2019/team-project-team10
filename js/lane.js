@@ -22,7 +22,7 @@ function showLane() {
         var sy = startPoints[i].position.y;
 
         promises.push(new Promise(function (resolve, reject) {
-            fetch(`http://165.194.35.214:26756/lane/?sx=${sx}&sy=${sy}&ex=${ex}&ey=${ey}`)
+            fetch(`http://165.194.35.214:3000/lane/?sx=${sx}&sy=${sy}&ex=${ex}&ey=${ey}`)
                 .then(function (res) {
                     // console.log(res);
                     res.json().then(body => {
@@ -59,7 +59,7 @@ function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos) {
     // console.log(mapObj);
     //ODsay apiKey 입력
     return new Promise((resolve, reject) => {
-        fetch(`http://165.194.35.214:26756/lane/loadLane/?mapObj=${mapObj}`)
+        fetch(`http://165.194.35.214:3000/lane/loadLane/?mapObj=${mapObj}`)
           .then(function(res){
           res.json().then(body=>{
             var resultJsonData = JSON.parse(body);
