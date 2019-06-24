@@ -22,7 +22,7 @@ function showLane() {
         var sy = startPoints[i].position.y;
 
         promises.push(new Promise(function (resolve, reject) {
-            fetch(`http://165.194.35.214:26756/lane/?sx=${sx}&sy=${sy}&ex=${ex}&ey=${ey}`)
+            fetch(`http://165.194.35.214:3000/lane/?sx=${sx}&sy=${sy}&ex=${ex}&ey=${ey}`)
                 .then(function (res) {
                     // console.log(res);
                     res.json().then(body => {
@@ -59,19 +59,21 @@ function callMapObjApiAJAX(mapObj, pathArray, startPos, endPos) {
     // console.log(mapObj);
     //ODsay apiKey 입력
     return new Promise((resolve, reject) => {
-        fetch(`http://165.194.35.214:26756/lane/loadLane/?mapObj=${mapObj}`)
+        fetch(`http://165.194.35.214:3000/lane/loadLane/?mapObj=${mapObj}`)
           .then(function(res){
           res.json().then(body=>{
             var resultJsonData = JSON.parse(body);
 
             drawMapPolyLine(resultJsonData, pathArray, startPos, endPos);      // 노선그래픽데이터 지도위 표시
             // boundary 데이터가 있을경우, 해당 boundary로 지도이동
-            if(resultJsonData.result.boundary){
-                  var boundary = new daum.maps.LatLngBounds();
-                  boundary.extend(new daum.maps.LatLng(resultJsonData.result.boundary.top, resultJsonData.result.boundary.left));
-                  boundary.extend(new daum.maps.LatLng(resultJsonData.result.boundary.bottom, resultJsonData.result.boundary.right));
-                  map.setBounds(boundary);
-            }
+            let topmost = Math.max.apply(null, startPosition_y);
+            let leftmost = Math.min.apply(null, startPosition_x);
+            let bottommost = Math.min.apply(null, startPosition_y);
+            let rightmost = Math.max.apply(null, startPosition_x);
+
+            mapBoundary.extend(new daum.maps.LatLng(topmost, leftmost));
+            mapBoundary.extend(new daum.maps.LatLng(bottommost, rightmost));
+            map.setBounds(mapBoundary);
          })
       })  
       })
